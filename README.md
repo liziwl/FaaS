@@ -2,10 +2,10 @@
 CS304 Software Engineering Project
 
 ## TODO
-- [ ]Golang picking up
-- [ ]Platform setup
-- [ ]Front end construction
-- [ ]Regular meeting(19/3/2018, 9:00)
+- [ ] Golang picking up
+- [ ] Platform setup
+- [ ] Front end construction
+- [ ] Regular meeting(19/3/2018, 9:00)
 
 Tutor: [Stone](https://cloud.tencent.com/developer/user/561187/activities) 
 ## Reference Links
