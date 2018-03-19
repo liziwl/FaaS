@@ -4,12 +4,13 @@ CS304 Software Engineering Project
 ![projetc](./project.png)
 
 ## TODOs
-
 ### TODO outlines
-- [ ] Golang picking up
-- [ ] Platform setup
+- [ ] ~~Golang picking up~~
+- [ ] ~~Platform setup~~
 - [ ] Front end construction
-- [ ] Regular meeting(19/3/2018, 9:00)
+- [ ] API discussion
+- [x] Regular meeting 1(19/3/2018, 9:00)
+- [ ] Regular meeting 2(26/3/2018, 9:00)
 
 ### TODO this week (3.19)
 
