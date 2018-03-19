@@ -1,11 +1,30 @@
 # FaaS Based Massive Data Processing Cloud Service 
 CS304 Software Engineering Project
 
-## TODO
+![projetc](./project.png)
+
+## TODOs
+
+### TODO outlines
 - [ ] Golang picking up
 - [ ] Platform setup
 - [ ] Front end construction
 - [ ] Regular meeting(19/3/2018, 9:00)
+
+### TODO this week (3.19)
+
+- [ ] 二维码叠加 -- @nixizi
+- [ ] 图片水印、文字水印 -- @Spacebody
+- [ ] 放大、缩小 -- @liziwl
+- [ ] 圆角处理 -- @liziwl
+- [ ] 前端页面 -- @zcy013 @yulianmiao
+
+### TODO Image process
+- [ ] 图片旋转
+- [ ] 比例裁剪
+- [ ] 图片大小压缩
+- [ ] 画风迁移
+- [ ] 图片无损放大
 
 Tutor: [Stone](https://cloud.tencent.com/developer/user/561187/activities) 
 ## Reference Links
