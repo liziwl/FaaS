@@ -3,7 +3,9 @@ import uuid
 import json
 import os
 import logging
+import re
 from PIL import Image
+from PIL import ImageDraw
 import PIL.Image
 import commands
 import datetime
@@ -21,12 +23,26 @@ region = credential.region
 
 cos_client = CosClient(appid, secret_id, secret_key, region)
 logger = logging.getLogger()
+file_name_p = re.compile(r'.+\.')
 
-def zoom_image(image_path, resized_path, ratio):
+def add_corners(src_image, r):
+    circle = Image.new('L', (r * 2, r * 2), 0)
+    draw = ImageDraw.Draw(circle)
+    draw.ellipse((0, 0, r * 2, r * 2), fill=255)
+    alpha = Image.new('L', src_image.size, "white")
+    w, h = src_image.size
+    alpha.paste(circle.crop((0, 0, r, r)), (0, 0))
+    alpha.paste(circle.crop((0, r, r, r * 2)), (0, h - r))
+    alpha.paste(circle.crop((r, 0, r * 2, r)), (w - r, 0))
+    alpha.paste(circle.crop((r, r, r * 2, r * 2)), (w - r, h - r))
+    src_image.putalpha(alpha)
+    return src_image
+    
+def round_image(image_path, rounded_path, rad):
     with Image.open(image_path) as image:
-        p_size = tuple(x*ratio for x in image.size)
-        zoomed_p = image.resize(p_size, Image.BICUBIC)
-        zoomed_p.save(resized_path)
+        image = add_corners(image, rad)
+        image.save(rounded_path)
+        print("-----{}-----".format(rounded_path))
 
 def delete_local_file(src):
     logger.info("delete files and folders")
@@ -52,27 +68,29 @@ def main_handler(event, context):
             key = record['cos']['cosObject']['key']
             key = key.replace('/' + str(appid) + '/' + bucket, '')
             download_path = '/tmp/{}{}'.format(uuid.uuid4(), key.split('/')[-1])
-            upload_path = '/tmp/zoomed-{}'.format(key.split('/')[-1])
-            print("Key is " + key)
+            upload_name = '{}{}'.format(file_name_p.findall(key.split('/')[-1])[0], 'png')
+            upload_path = '/tmp/rounded-{}'.format(upload_name)
+            print("Key is " + key) # file name in bucket
             print("Get from [%s] to download file [%s]" %(bucket, key))
 
             # download image from cos
             request = DownloadFileRequest(bucket, key, download_path)
             download_file_ret = cos_client.download_file(request)
             if download_file_ret['code'] == 0:
-                # TODO change ratio as Incoming parameter
-                ratio = 3
+                # TODO change rad as Incoming parameter
+                rad = 100
                 logger.info("Download file [%s] Success" % key)
                 logger.info("Image compress function start")
                 starttime = datetime.datetime.now()
 
                 #compress image here
-                zoom_image(download_path, upload_path, ratio)
+                round_image(download_path, upload_path, rad)
                 endtime = datetime.datetime.now()
                 logger.info("compress image take " + str((endtime-starttime).microseconds/1000) + "ms")
 
                 #upload the compressed image to resized bucket
-                request = UploadFileRequest(u'%sresized' % bucket, key.decode('utf-8'), upload_path.decode('utf-8'))
+                u_key = '{}{}'.format(file_name_p.findall(key)[0], 'png')
+                request = UploadFileRequest(u'%sresized' % bucket, u_key.decode('utf-8'), upload_path.decode('utf-8'))
                 upload_file_ret = cos_client.upload_file(request)
                 logger.info("upload image, return message: " + str(upload_file_ret))
 
