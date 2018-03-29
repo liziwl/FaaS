@@ -10,13 +10,14 @@ CS304 Software Engineering Project
 - [ ] Front end construction
 - [ ] API discussion
 - [x] Regular meeting 1(19/3/2018, 9:00)
-- [ ] Regular meeting 2(26/3/2018, 9:00)
+- [x] Regular meeting 2(26/3/2018, 9:00)
+- [ ] Regular meeting 3(2/4/2018, 9:00)
 
 ### TODO this week (3.19)
 
 - [ ] 二维码叠加 -- @nixizi
 - [ ] 图片水印、文字水印 -- @Spacebody
-- [ ] 放大、缩小 -- @liziwl
+- [x] 放大、缩小 -- @liziwl
 - [ ] 圆角处理 -- @liziwl
 - [ ] 前端页面 -- @zcy013 @yulianmiao
 
