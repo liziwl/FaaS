@@ -18,7 +18,7 @@ CS304 Software Engineering Project
 - [ ] 二维码叠加 -- @nixizi
 - [ ] 图片水印、文字水印 -- @Spacebody
 - [x] 放大、缩小 -- @liziwl
-- [ ] 圆角处理 -- @liziwl
+- [x] 圆角处理 -- @liziwl
 - [ ] 前端页面 -- @zcy013 @yulianmiao
 
 ### TODO Image process
