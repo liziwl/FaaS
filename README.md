@@ -5,13 +5,12 @@ CS304 Software Engineering Project
 
 ## TODOs
 ### TODO outlines
-- [ ] ~~Golang picking up~~
-- [ ] ~~Platform setup~~
 - [ ] Front end construction
 - [ ] API discussion
 - [x] Regular meeting 1(19/3/2018, 9:00)
 - [x] Regular meeting 2(26/3/2018, 9:00)
-- [ ] Regular meeting 3(2/4/2018, 9:00)
+- [x] Regular meeting 3(2/4/2018, 9:00)
+- [ ] Regular meeting 4(9/4/2018, 9:00)
 
 ### TODO this week (3.19)
 
@@ -30,7 +29,6 @@ CS304 Software Engineering Project
 
 Tutor: [Stone](https://cloud.tencent.com/developer/user/561187/activities) 
 ## Reference Links
-* [Golang](https://golang.org)
 * [OpenFaaS](https://www.openfaas.com)
 * [无服务器云函数 文档](https://cloud.tencent.com/document/product/583)
 * [API网关 文档](https://cloud.tencent.com/document/product/628)
