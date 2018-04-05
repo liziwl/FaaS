@@ -219,3 +219,39 @@ html.fp-enabled,
 .fp-responsive .fp-auto-height-responsive .fp-tableCell {
     height: auto !important;
 }
+/*
+the first page
+ */
+#section0
+{
+    background-image: url(pitures/section0.jpg);
+    position:relative;
+    overflow:hidden;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;'>
+}
+/*
+the first page title
+ */
+#section0_title
+{
+   color: #ffffff;
+}
+#section0_comment
+{
+    color: #ffffff;
+    font-size: 300%;
+}
+#slide1
+{
+
+    background-image: url(pitures/zoom.jpg);
+    position:relative;
+    overflow:hidden;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;'>
+}

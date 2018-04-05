@@ -24,6 +24,8 @@
 		$(document).ready(function() {
 			$('#fullpage').fullpage({
 				sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#ccddff']
+
+				//anchors:['firstPage', 'secondPage', 'thirdPage','fourthPage']
 			});
 		});
 	</script>
@@ -32,12 +34,20 @@
 <body>
 
 <div id="fullpage">
-	<div class="section active" id="section0"><h1>fullPage.js</h1></div>
+	<div class="section active" id="section0">
+		<h1 id="section0_title">FaaS</h1>
+		<h2 id="section0_comment">为您处理好每一张图片</h2>
+	</div>
 	<div class="section" id="section1">
-	    <div class="slide "><h1>Simple Demo</h1></div>
-	    <div class="slide active"><h1>Only text</h1></div>
-	    <div class="slide"><h1>And text</h1></div>
-	    <div class="slide"><h1>And more text</h1></div>
+
+	    <div class="slide active" id="slide1">
+			<h1 id="slide1_title" style="color: #ffffff;">缩放图片</h1>
+
+		</div>
+		<div class="slide " id="first_slide"><h1>为图片加水印</h1></div>
+	    <div class="slide"><h1>为图片加二维码</h1></div>
+	    <div class="slide"><h1>压缩图片</h1></div>
+		<div class="slide"><h1>待续。。。</h1></div>
 	</div>
 	<div class="section" id="section2"><h1>No wraps, no extra markup</h1></div>
 	<div class="section" id="section3"><h1>Just the simplest demo ever</h1></div>
