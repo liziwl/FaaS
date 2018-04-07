@@ -27,16 +27,20 @@
 
 				//anchors:['firstPage', 'secondPage', 'thirdPage','fourthPage']
 			});
-			$.ajax({
-				//此处填写服务器地址
-				//url:'',
-				type: 'POST',
-				cache:false,
-				data: new FormData($('#zoom_file_upload')[0]),
-				processData:false,
-				contentType:false
-			})
+			$('#zoom_file').click(){
+                $.ajax({
+                //此处填写服务器地址
+                //url:'',
+                type: 'POST',
+                cache:false,
+                data: new FormData($('#zoom_file_upload')[0]),
+                processData:false,
+                contentType:false
+            })
+			}
+
 		});
+		$(document).on('submit',)
 	</script>
 
 </head>
