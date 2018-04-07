@@ -27,20 +27,19 @@
 
 				//anchors:['firstPage', 'secondPage', 'thirdPage','fourthPage']
 			});
-			$('#zoom_file').click(){
+			$('#zoom_file').click()
+            {
                 $.ajax({
-                //此处填写服务器地址
-                //url:'',
-                type: 'POST',
-                cache:false,
-                data: new FormData($('#zoom_file_upload')[0]),
-                processData:false,
-                contentType:false
-            })
-			}
-
+                    //此处填写服务器地址
+                    url:'http:my.liziwl.cn:5000/sign',
+                    type: 'POST',
+                    cache: false,
+                    data: new FormData($('#zoom_file_upload')[0]),
+                    processData: false,
+                    contentType: false
+                })
+            }
 		});
-		$(document).on('submit',)
 	</script>
 
 </head>
@@ -61,9 +60,10 @@
 				<label class="custom-file-container__custom-file" >
 					<input type="file" class="custom-file-container__custom-file__custom-file-input" accept="*" multiple>
 					<input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
-					<input type="button" value="Upload" id="zoom_file">
+
 					<span class="custom-file-container__custom-file__custom-file-control"></span>
 				</label>
+                <input type="button" value="Upload" id="zoom_file">
 				<div class="custom-file-container__image-preview"></div>
 			</div>
 		</div>
