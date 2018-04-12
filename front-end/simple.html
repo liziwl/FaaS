@@ -14,8 +14,10 @@
 	<link rel="stylesheet" type="text/css" href="examples.css" />
 	<link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.min.css">
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!--<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 	<script type="text/javascript" src="scrolloverflow.js"></script>
 
@@ -27,16 +29,29 @@
 
 				//anchors:['firstPage', 'secondPage', 'thirdPage','fourthPage']
 			});
+			var requestURL="http://my.liziwl.cn:5000/sign";
 			$('#zoom_file').click()
             {
+                console.log('gg');
+                $.getJSON( requestURL, function( data ){
+                    console.log('gg2');
+                    // console.log(data);
+                    data = JSON.parse(data);
+                    console.log(data);
+                    console.log(data['data']['credentials']); // Logs "jQuery Howto"
+                });
                 $.ajax({
                     //此处填写服务器地址
-                    url:'http:my.liziwl.cn:5000/sign',
+                    url:"guangzhou.file.myqcloud.com",
                     type: 'POST',
                     cache: false,
-                    data: new FormData($('#zoom_file_upload')[0]),
+                    data: {
+                        "Authorization":"SU7vzQeHgWVssbsDFJ5xhtcqGVxhPTEyNTQwOTU2MTEmYj1pbWcmaz1BS0lEcFpEeUJLNkJwTWoxREQ4VVNKZ085a0hlcHBlSHd5NDUmZT0xNTIzNzE0ODQ2JnQ9MTUyMzExMDA0NiZyPTIyNjczMjc4OCZmPQ==",
+                        "":new FormData($('#zoom_file_upload')[0])
+                    },
                     processData: false,
-                    contentType: false
+                    contentType: false,
+
                 })
             }
 		});
