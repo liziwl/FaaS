@@ -26,7 +26,7 @@
 <script>
     (function () {
         // 请求用到的参数
-        var Bucket = 'test-1250000000';
+        var Bucket = 'auth-1254095611';
         var Region = 'ap-guangzhou';
         var protocol = location.protocol === 'https:' ? 'https:' : 'http:';
         var prefix = protocol + '//' + Bucket + '.cos.' + Region + '.myqcloud.com/';
@@ -36,7 +36,7 @@
             var method = (options.Method || 'get').toLowerCase();
             var key = options.Key || '';
             // var url = 'http://127.0.0.1:3000/sts-post-object' +
-                var url = '../server/sts-post-object.php' +
+                var url = 'http://my.liziwl.cn/server/sts-post-object.php' +
                 '?method=' + method +
                 '&pathname=' + encodeURIComponent('/') +
                 '&key=' + encodeURIComponent(key);

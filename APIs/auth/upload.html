@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ajax Put 简单上传</title>
+    <title>Ajax Post 上传</title>
     <style>
         h1, h2 {
             font-weight: normal;
@@ -15,14 +15,14 @@
 </head>
 <body>
 
-<h1>Ajax Put 上传</h1>
-<div>最低兼容到 ie10，支持 onprogress</div>
+<h1>Ajax Post 上传</h1>
 
 <input id="fileSelector" type="file">
 <input id="submitBtn" type="submit">
 
 <div id="msg"></div>
 
+<script src="../dist/cos-js-sdk-v5.min.js"></script>
 <script>
     (function () {
         // 请求用到的参数
@@ -35,37 +35,47 @@
         var getAuthorization = function (options, callback) {
             var method = (options.Method || 'get').toLowerCase();
             var key = options.Key || '';
-            var pathname = key.indexOf('/') === 0 ? key : '/' + key;
-
-            var url = '../server/auth.php';
+            // var url = 'http://127.0.0.1:3000/sts-post-object' +
+                var url = 'http://my.liziwl.cn/server/sts-post-object.php' +
+                '?method=' + method +
+                '&pathname=' + encodeURIComponent('/') +
+                '&key=' + encodeURIComponent(key);
             var xhr = new XMLHttpRequest();
-            var data = {
-                method: method,
-                pathname: pathname,
-            };
-            xhr.open('POST', url, true);
-            xhr.setRequestHeader('content-type', 'application/json');
+            xhr.open('GET', url, true);
             xhr.onload = function (e) {
-                if (e.target.responseText === 'action deny') {
-                    alert('action deny');
-                } else {
-                    callback(e.target.responseText);
+                var data = JSON.parse(e.target.responseText);
+                if (data.authorization === '') {
+
                 }
+                callback(null, {
+                    Authorization: data.authorization,
+                    XCosSecurityToken: data.sessionToken,
+                });
             };
-            xhr.send(JSON.stringify(data));
+            xhr.onerror = function (e) {
+                callback('获取签名出错');
+            };
+            xhr.send();
         };
 
         // 上传文件
         var uploadFile = function (file, callback) {
             var Key = 'dir/' + file.name; // 这里指定上传目录和文件名
-            getAuthorization({Method: 'PUT', Key: Key}, function (auth) {
 
-                var url = prefix + Key;
+            getAuthorization({Method: 'POST', Key: Key}, function (err, info) {
+                var auth = info.Authorization;
+                var XCosSecurityToken = info.XCosSecurityToken;
+
+                var fd = new FormData();
+                fd.append('key', Key);
+                fd.append('Signature', auth);
+                XCosSecurityToken && fd.append('x-cos-security-token', XCosSecurityToken);
+                fd.append('file', file);
+                var url = prefix;
                 var xhr = new XMLHttpRequest();
-                xhr.open('PUT', url, true);
-                xhr.setRequestHeader('Authorization', auth);
+                xhr.open('POST', url, true);
                 xhr.onload = function () {
-                    if (xhr.status === 200 || xhr.status === 206) {
+                    if (Math.floor(xhr.status / 100) === 2) {
                         var ETag = xhr.getResponseHeader('etag');
                         callback(null, {url: url, ETag: ETag});
                     } else {
@@ -75,7 +85,8 @@
                 xhr.onerror = function () {
                     callback('文件 ' + Key + ' 上传失败，请检查是否没配置 CORS 跨域规则');
                 };
-                xhr.send(file);
+                xhr.send(fd);
+
             });
         };
 
