@@ -35,3 +35,7 @@ Tutor: [Stone](https://cloud.tencent.com/developer/user/561187/activities)
 * [命令行工具 文档](https://cloud.tencent.com/document/product/440)
 * [用 FaaS 实现比优图更灵活的大量图片快速加工能力](https://cloud.tencent.com/developer/article/1011234)
 * [Pillow official doc](https://pillow.readthedocs.io/en/latest/) -- Python图片处理库
+### 示例
+* [快速构建图片处理云函数](./快速部署创建流程.md)
+* [获取COS上的图像并创建缩略图](https://cloud.tencent.com/document/product/583/9734)
+* [使用API网关提供API服务](https://cloud.tencent.com/document/product/583/13197)
