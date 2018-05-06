@@ -29,6 +29,8 @@ CS304 Software Engineering Project
 
 Tutor: [Stone](https://cloud.tencent.com/developer/user/561187/activities) 
 ## Reference Links
+* [腾讯云中间件团队的专栏](https://cloud.tencent.com/developer/column/1027)
+* [腾讯云serverless的专栏](https://cloud.tencent.com/developer/column/1196)
 * [OpenFaaS](https://www.openfaas.com)
 * [无服务器云函数 文档](https://cloud.tencent.com/document/product/583)
 * [API网关 文档](https://cloud.tencent.com/document/product/628)
