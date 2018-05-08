@@ -34,7 +34,7 @@ elif imageW < 3100:
 else:
     k = 300
 Font = ImageFont.truetype(
-    "/home/caesar/Repository/FaaS/SCF/Original_Function/Ubuntu-M.ttf", k, encoding="unic")
+    "/home/caesar/Repository/FaaS/SCF/Figure/Ubuntu-M.ttf", k, encoding="unic")
 textW, textH = Font.getsize(text)
 d.ink = 0 + 0 * 256 + 0 * 256 * 256
 d.text([(textImageW-textW)/2, (textImageH-textH)/2], text, font=Font)
