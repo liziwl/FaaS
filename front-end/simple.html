@@ -15,10 +15,10 @@
     <link rel="stylesheet" type="text/css"
           href="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.min.css">
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!--<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <script type="text/javascript" src="scrolloverflow.js"></script>
 	<script src="https://unpkg.com/file-upload-with-preview"></script>
@@ -33,24 +33,166 @@
 
     <script type="text/javascript" src="jquery.fullPage.js"></script>
     <script type="text/javascript">
+        // 请求用到的参数
+        var Bucket = 'imgps-1254095611';
+        var Region = 'ap-guangzhou';
+        var protocol = location.protocol === 'https:' ? 'https:' : 'http:';
+        var prefix = protocol + '//' + Bucket + '.cos.' + Region + '.myqcloud.com/';
+        var file;
+        // 计算签名
+        var getAuthorization = function (options, callback) {
+            var method = (options.Method || 'get').toLowerCase();
+            var key = options.Key || '';
+            // var url = 'http://127.0.0.1:3000/sts-post-object' +
+            var url = 'http://111.230.168.122/server/sts-post-object.php' +
+                '?method=' + method +
+                '&pathname=' + encodeURIComponent('/') +
+                '&key=' + encodeURIComponent(key);
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onload = function (e) {
+                var data = JSON.parse(e.target.responseText);
+                if (data.authorization === '') {
+
+                }
+                callback(null, {
+                    Authorization: data.authorization,
+                    XCosSecurityToken: data.sessionToken,
+                });
+            };
+            xhr.onerror = function (e) {
+                callback('获取签名出错');
+            };
+            xhr.send();
+        };
+
+        var address;
+
+        var uploadFile=function (file, callback) {
+            address = "http://imgp-1254095611.cosgz.myqcloud.com/"+file.name;
+            var Key = file.name;
+            getAuthorization({Method:'POST',Key:Key},function (err,info) {
+                var auth = info.Authorization;
+                var XCosSecurityToken=info.XCosSecurityToken;
+                var fd=new FormData();
+                fd.append('key',Key);
+                fd.append('Signature',auth);
+                XCosSecurityToken && fd.append('x-cos-security-token', XCosSecurityToken);
+                fd.append('file',file);
+                var url=prefix;
+                var xhr=new XMLHttpRequest();
+                xhr.open('POST',url,true);
+                xhr.onload=function () {
+                    if(Math.floor(xhr.status/100)===2){
+                        var ETag=xhr.getResponseHeader('etag');
+                        callback(null,{url:url,ETag:ETag});
+                    }
+                    else
+                    {
+                        callback('File'+Key+'Upload Failed, status code:'+xhr.status);
+                    }
+                };
+                xhr.onerror=function () {
+                    callback('File'+Key+'Upload failed. Please check if CORS cross domain rules are not configured.')
+                };
+                xhr.send(fd);
+
+            });
+        }
+
+
+
+
         $(document).ready(function () {
             $('#fullpage').fullpage({
                 sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#ccddff']
-				//anchors:['firstPage', 'secondPage', 'thirdPage','fourthPage']
-			});
-			$('#zoom_file').click()
-            {
-                $.ajax({
-                    //此处填写服务器地址
-                    url:'http:my.liziwl.cn:5000/sign',
-                    type: 'POST',
-                    cache: false,
-                    data: new FormData($('#zoom_file_upload')[0]),
-                    processData: false,
-                    contentType: false
-                })
-            }
-		});
+                //anchors:['firstPage', 'secondPage', 'thirdPage','fourthPage']
+            });
+            // var requestURL="http://my.liziwl.cn:5000/sign";
+            // $('#zoom_file').click()
+            // {
+            //     console.log('gg');
+            //     $.getJSON( requestURL, function( data ){
+            //         console.log('gg2');
+            //         // console.log(data);
+            //         data = JSON.parse(data);
+            //         console.log(data);
+            //         console.log(data['data']['credentials']); // Logs "jQuery Howto"
+            //     });
+            //     $.ajax({
+            //         //此处填写服务器地址
+            //         url:"guangzhou.file.myqcloud.com",
+            //         type: 'POST',
+            //         cache: false,
+            //         data: {
+            //             "Authorization":"SU7vzQeHgWVssbsDFJ5xhtcqGVxhPTEyNTQwOTU2MTEmYj1pbWcmaz1BS0lEcFpEeUJLNkJwTWoxREQ4VVNKZ085a0hlcHBlSHd5NDUmZT0xNTIzNzE0ODQ2JnQ9MTUyMzExMDA0NiZyPTIyNjczMjc4OCZmPQ==",
+            //             "":new FormData($('#zoom_file_upload')[0])
+            //         },
+            //         processData: false,
+            //         contentType: false,
+            //
+            //     })
+            // }
+
+
+
+            var status_code;
+            $('#cut_upload_file').click(function () {
+                file=document.getElementById('zoom_file').files[0];
+                if(!file)
+                {
+                    alert("Please choose a picture");
+                    // document.getElementById('slide1').innerText='Do not choose the upload file';
+                    return;
+                }
+                file && uploadFile(file, function (err,data) {
+                    console.log(err||data);
+                    uploadFile(file, callback());
+                    alert("function");
+                    alert('Upload Successfully');
+                    // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
+
+                });
+
+                    $.ajax({
+                        url: address,
+                        success: function () {
+                          status_code = 200;
+                          alert("Finish Process");
+                        },
+
+                    });
+
+            });
+
+            $('#cut_download_file').click(function () {
+                if(status_code == 200 )
+                {
+
+
+                    downloadURI(address, file.name);
+                    // address="'"+address+"'";
+                    $("#cut_preview_image").attr("src", address);
+                }
+                else
+                {
+                    alert(status_code);
+                    alert("The process do not finish yet.");
+                }
+
+
+            });
+
+        });
+        function downloadURI(uri, name) {
+            var link = document.createElement("a");
+            link.download = name;
+            link.href = uri;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            delete link;
+        }
 	</script>
 
 
@@ -64,27 +206,30 @@
     <div class="section" id="section1">
         <div class="slide active" id="slide1">
             <div class="container">
-                <h1 id="slide1_title" style="color: #ffffff;">图片无损放大</h1>
+                <h1 id="slide1_title" style="color: #ffffff;">图片剪圆角</h1>
                 <div class="custom-file-container" data-upload-id="myUniqueUploadId">
                     <label style="display: none;">Upload File <a href="javascript:void(0)"
                                                                  class="custom-file-container__image-clear"
                                                                  title="Clear Image">x</a></label>
                     <label class="custom-file-container__custom-file" id="file_control_bar">
                         <input type="file" class="custom-file-container__custom-file__custom-file-input"
-                               style="height: 100%;" accept="image/*">
+                               style="height: 100%;" accept="image/*" id="zoom_file">
                         <input type="hidden" name="MAX_FILE_SIZE" value="10485760"/>
                         <span class="custom-file-container__custom-file__custom-file-control"
                               style="height: 100%; "></span>
                     </label>
                     <div>
-                        <input class="control_btn" type="button" value="Process" style="background: #33d9b2">
-                        <input class="control_btn" type="button" value="Download" style="background: #34ace0">
-                        <input class="control_btn" type="button" value="Cancel" style="background: #ff5252">
+                        <input class="control_btn" type="button" id="cut_upload_file" value="Process" style="background: #33d9b2">
+                        <input class="control_btn" type="button" id="cut_download_file" value="Download" style="background: #34ace0">
+                        <a href="#" id = "download_cut_file" onclick="prepHref(this)" download></a>
+                        <input class="control_btn" type="button" id="cut_remove_file"value="Cancel" style="background: #ff5252">
                     </div>
                     <div class="row">
                         <div class="image_container custom-file-container__image-preview"></div>
                         <div class="image_container custom-file-container__image-preview"
-                             style="border: solid 1px"></div>
+                             style="border: solid 1px" id="download_preview" >
+                            <img id="cut_preview_image" src="" alt="No image loaded"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -97,7 +242,7 @@
         <div class="section" id="section3"><h1>Just the simplest demo ever</h1></div>
     </div>
 </div>
-
+<script src="https://unpkg.com/file-upload-with-preview"></script>
 <script>
     var upload = new FileUploadWithPreview('myUniqueUploadId')
 </script>
