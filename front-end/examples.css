@@ -48,7 +48,7 @@ abbr,acronym { border: 0;
 /* Custom CSS
  * --------------------------------------- */
 body{
-	font-family: arial,helvetica;
+	font-family: Lato, arial, helvetica, serif;
 	color: #333;
 	color: rgba(0,0,0,0.5);
 }
@@ -242,3 +242,31 @@ p{
 	z-index: 999;
  }
 
+.custom-file-container__custom-file__custom-file-control:before{
+	height: 100% !important;
+	padding: 5px 12px !important;
+}
+
+.custom-file-container__custom-file__custom-file-control:after{
+	color: #BDBDBD;
+	font-weight: lighter;
+}
+
+#file_control_bar{
+	width: calc(100% - 20px);
+	max-width: 600px;
+	height: 30px;
+	margin: 10px;
+}
+
+.control_btn{
+	margin: 15px 5px;
+	padding: 5px 15px;
+	font-weight: 300;
+	background-color: #edede8;
+	border: 0;
+	/*border: 1px solid #c0c0af;*/
+	border-radius: .25rem;
+	color: white;
+	cursor: pointer;
+}

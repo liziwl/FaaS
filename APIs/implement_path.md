@@ -14,4 +14,5 @@
 
 ## 方案二
 
-1. 直接API合成全部参数。
+[Web 端直传实践](https://cloud.tencent.com/document/product/436/9067)
+[快速搭建移动应用传输服务](https://cloud.tencent.com/document/product/436/9068)

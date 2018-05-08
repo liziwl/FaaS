@@ -1,0 +1,6 @@
+.image_container{
+    width: 40%;
+    max-width: 400px;
+    margin: 20px;
+    display: inline-block;
+}
