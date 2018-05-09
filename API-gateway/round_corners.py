@@ -36,6 +36,7 @@ def add_corners(src_image, r):
     alpha.paste(circle.crop((r, 0, r * 2, r)), (w - r, 0))
     alpha.paste(circle.crop((r, r, r * 2, r * 2)), (w - r, h - r))
     src_image.putalpha(alpha)
+    logger.info("Process successfully")
     return src_image
     
 def round_image(image_path, rounded_path, rad):
@@ -64,12 +65,9 @@ def main_handler(event, context):
     if "requestContext" not in event.keys():
         logger.info("event is not come from api gateway")
         return json.dumps({"errorCode":410,"errorMsg":"event is not come from api gateway"})
-    if event["requestContext"]["path"] != "/image/{imageID}" and event["requestContext"]["path"] != "/image":
-        logger.info("request is not from setting api path")
-        return json.dumps({"errorCode":411,"errorMsg":"request is not from setting api path"})
-    if event["requestContext"]["path"] == "/image" and event["requestContext"]["httpMethod"] == "GET": #获取文章列表
+    if event["requestContext"]["path"] == "/Image_process/round_corners" and event["requestContext"]["httpMethod"] == "POST": 
         logger.info("start main handler")
-        record = event['pathParameter']
+        record = event['pathParameters']
         try:
             bucket = record['cos']['cosBucket']['name']
             key = record['cos']['cosObject']['key']
@@ -96,7 +94,7 @@ def main_handler(event, context):
 
                 #upload the compressed image to resized bucket
                 u_key = '{}{}'.format(file_name_p.findall(key)[0], 'png')
-                request = UploadFileRequest(u'%sresized' % bucket, u_key.decode('utf-8'), upload_path.decode('utf-8'))
+                request = UploadFileRequest(u'output', key.decode('utf-8'), upload_path.decode('utf-8'))
                 upload_file_ret = cos_client.upload_file(request)
                 logger.info("upload image, return message: " + str(upload_file_ret))
 
