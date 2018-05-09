@@ -84,11 +84,11 @@
                 xhr.onload=function () {
                     if(Math.floor(xhr.status/100)===2){
                         var ETag=xhr.getResponseHeader('etag');
-                        callback(null,{url:url,ETag:ETag});
+                        //callback(null,{url:url,ETag:ETag});
                     }
                     else
                     {
-                        callback('File'+Key+'Upload Failed, status code:'+xhr.status);
+                        //callback('File'+Key+'Upload Failed, status code:'+xhr.status);
                     }
                 };
                 xhr.onerror=function () {
@@ -219,9 +219,10 @@
                         url: address,
                         success: function () {
                           status_code = 200;
-                          $("#cut_preview_image").attr("src", address);
+                            $("#download_preview").css("background-image", 'url(' + address + ')');
+                          // $("#cut_preview_image").attr("src", address);
                           alert("Finish Process");
-                        },
+                        }
 
                     });
 
@@ -232,9 +233,10 @@
                 {
 
 
-                    downloadURI(address, file.name);
+
                     // address="'"+address+"'";
 
+                    downloadURI(address, file.name);
                 }
                 else
                 {
@@ -278,7 +280,7 @@
                                style="height: 100%;" accept="image/*" id="zoom_file">
                         <input type="hidden" name="MAX_FILE_SIZE" value="10485760"/>
                         <span class="custom-file-container__custom-file__custom-file-control"
-                              style="height: 100%; "></span>
+                              style="height: 100%; padding: 0; "></span>
                     </label>
                     <div>
                         <input type="text"  id = "radius" value="Please put the radius">
@@ -292,7 +294,7 @@
                         <div class="image_container custom-file-container__image-preview"></div>
                         <div class="image_container custom-file-container__image-preview"
                              style="border: solid 1px" id="download_preview" >
-                            <img id="cut_preview_image" src="" alt="No image loaded"/>
+                            <!--<img id="cut_preview_image" src="" alt="No image loaded"/>-->
                         </div>
                     </div>
                 </div>
