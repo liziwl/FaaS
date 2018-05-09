@@ -9,15 +9,12 @@
     <meta name="keywords" content="fullpage,jquery,demo,simple"/>
     <meta name="Resource-type" content="Document"/>
 
-
     <link rel="stylesheet" type="text/css" href="jquery.fullPage.css"/>
     <link rel="stylesheet" type="text/css" href="examples.css"/>
     <link rel="stylesheet" type="text/css"
           href="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.min.css">
 
-	<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<!--<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <script type="text/javascript" src="scrolloverflow.js"></script>
@@ -56,7 +53,7 @@
                 }
                 callback(null, {
                     Authorization: data.authorization,
-                    XCosSecurityToken: data.sessionToken,
+                    XCosSecurityToken: data.sessionToken
                 });
             };
             xhr.onerror = function (e) {
@@ -66,7 +63,6 @@
         };
 
         var address;
-
         var uploadFile=function (file, callback) {
             address = "http://imgp-1254095611.cosgz.myqcloud.com/"+file.name;
             var Key = file.name;
@@ -81,16 +77,16 @@
                 var url=prefix;
                 var xhr=new XMLHttpRequest();
                 xhr.open('POST',url,true);
-                xhr.onload=function () {
+                /*xhr.onload=function () {
                     if(Math.floor(xhr.status/100)===2){
                         var ETag=xhr.getResponseHeader('etag');
-                        //callback(null,{url:url,ETag:ETag});
+                        callback(null,{url:url,ETag:ETag});
                     }
                     else
                     {
-                        //callback('File'+Key+'Upload Failed, status code:'+xhr.status);
+                        callback('File'+Key+'Upload Failed, status code:'+xhr.status);
                     }
-                };
+                };*/
                 xhr.onerror=function () {
                     callback('File'+Key+'Upload failed. Please check if CORS cross domain rules are not configured.')
                 };
@@ -155,14 +151,8 @@
                     console.log('http://service-mi2vlexs-1252063131.ap-guangzhou.apigateway.myqcloud.com/Image_process/round_corners'); // http://example.com/test
                 };
                 trigger_xhr.send(newData);
-
-
-
             });
-        }
-
-
-
+        };
 
         $(document).ready(function () {
             $('#fullpage').fullpage({
@@ -195,11 +185,9 @@
             //     })
             // }
 
-
-
             var status_code;
-            $('#cut_upload_file').click(function () {
-                file=document.getElementById('zoom_file').files[0];
+            $('#round_upload').click(function () {
+                file=document.getElementById('round_file').files[0];
                 if(!file)
                 {
                     alert("Please choose a picture");
@@ -212,30 +200,22 @@
                     alert("function");
                     alert('Upload Successfully');
                     // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
-
                 });
-
                     $.ajax({
                         url: address,
                         success: function () {
                           status_code = 200;
-                            $("#download_preview").css("background-image", 'url(' + address + ')');
+                            $("#round_preview").css("background-image", 'url(' + address + ')');
                           // $("#cut_preview_image").attr("src", address);
                           alert("Finish Process");
                         }
-
                     });
-
             });
 
-            $('#cut_download_file').click(function () {
-                if(status_code == 200 )
+            $('#round_download').click(function () {
+                if(status_code === 200 )
                 {
-
-
-
                     // address="'"+address+"'";
-
                     downloadURI(address, file.name);
                 }
                 else
@@ -243,10 +223,7 @@
                     alert(status_code);
                     alert("The process do not finish yet.");
                 }
-
-
             });
-
         });
         function downloadURI(uri, name) {
             var link = document.createElement("a");
@@ -259,7 +236,6 @@
         }
 	</script>
 
-
 </head>
 <body style="font-family: Lato, arial, 'Microsoft YaHei UI', serif;">
 <div id="fullpage">
@@ -270,42 +246,43 @@
     <div class="section" id="section1">
         <div class="slide active" id="slide1">
             <div class="container">
-                <h1 id="slide1_title" style="color: #ffffff;">图片剪圆角</h1>
+                <h1 class="slide_title">图片剪圆角</h1>
                 <div class="custom-file-container" data-upload-id="myUniqueUploadId">
                     <label style="display: none;">Upload File <a href="javascript:void(0)"
                                                                  class="custom-file-container__image-clear"
                                                                  title="Clear Image">x</a></label>
-                    <label class="custom-file-container__custom-file" id="file_control_bar">
+                    <label class="custom-file-container__custom-file file_control_bar">
                         <input type="file" class="custom-file-container__custom-file__custom-file-input"
-                               style="height: 100%;" accept="image/*" id="zoom_file">
+                               style="height: 100%;" accept="image/*" id="round_file">
                         <input type="hidden" name="MAX_FILE_SIZE" value="10485760"/>
                         <span class="custom-file-container__custom-file__custom-file-control"
                               style="height: 100%; padding: 0; "></span>
                     </label>
                     <div>
-                        <input type="text"  id = "radius" value="Please put the radius">
-                        <input class="control_btn" type="button" id="cut_upload_file" value="Process" style="background: #33d9b2">
-                        <input class="control_btn" type="button" id="cut_download_file" value="Download" style="background: #34ace0">
-
-                        <a href="#" id = "download_cut_file" onclick="prepHref(this)" download></a>
-                        <input class="control_btn" type="button" id="cut_remove_file"value="Cancel" style="background: #ff5252">
+                        <input type="text" class="input_box" id = "round_input" placeholder="input the radius">
+                        <input class="control_btn" type="button" id="round_upload" value="Upload" style="background: #33d9b2">
+                        <input class="control_btn" type="button" id="round_download" value="Download" style="background: #34ace0">
+                        <a href="#" onclick="prepHref(this)" download></a>
+                        <!--<input class="control_btn" type="button" id="round_cancel"value="Cancel" style="background: #ff5252">-->
                     </div>
                     <div class="row">
                         <div class="image_container custom-file-container__image-preview"></div>
                         <div class="image_container custom-file-container__image-preview"
-                             style="border: solid 1px" id="download_preview" >
+                             id="round_preview" style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAiQAAAD6CAMAAACmhqw0AAAA+VBMVEUAAAD29u3u7unt7ent7enu7uju7uihoqCio6Gio6KjpKOkpaSmpqSmp6WoqKaqq6mqq6qrq6qsrautrauur62wsa6xsa+xsrCys7GztLK0tbK1trS2t7S3t7W4uba5ure6u7e7vLm8vbu9vrvAwL3Awb3DxMHFxcPGxsPHx8TIycXLzMjLzMnMzMnNzsrPz8vP0MzQ0M3S0s/U1NDV1dLX19TY2NTY2NXZ2dba2tXb29bc3Nfc3Njc3dnd3dre3tre39vg4Nvh4dzi4t3i4t7j497k5N/k5ODl5eDl5eHl5uLm5uHn5+Lo6OPp6eTq6uXr6+bs7Oft7eh54KxIAAAAB3RSTlMAHKbl5uztvql9swAABA1JREFUeNrt3VlT01AYgOG0oEEE910URNzFBVFcqCgKirLU/P8fI3QYbEOSdtrMyJzzvHfMlFx833NBQuY0SRrN8UwqabzZSJLGaYNQVacaSdMUVF0zGTMEVTeWmIH6BYkgESSCRJAIEkEiSCRIBIkgESSCRJAIEkEiQSJIBIkgESSCRJAIEgkSQSJIBIkgESSCRJBIkAgSQSJIBIkgESSCRIJEkAgSQSJIBIkgkSARJIJEkAgSQSJIBIkEiSARJIJEkAgSQSJIJEgEiSARJIJEkAgSQSJBIkgEiSARJIJEkAgSCRJBIkgEiSARJIJEgkSQ5PvxbdS+tyEJuZVb0+noTV579geSQGs/SOvqxiYkYfYwra+rbUhC7NNEjUjSJ5CE2P06jaTnIAmxKwe7vb468t3N14WOki1IAuzMwWrf1HCh3Q6S95AEWGe1b0/WlSCBBBJIIAkdSXvt1aNXa21IICld7dJU5+epJUggKV7tzuzRA4/ZHUggKVrtfNdjsXlIIClY7XLPw9NlSCA5vtqLPUguQgLJsdX+zv0fZhsSSPKrXckhWSn5jV8zG5DEiuR1DsnrEiOX0vMbkESKZDWHZLXMSFqsBJIIkOz1vn40sVdqpFgJJDHc3dzsQXKzwkihEkhiQLI+2f3y+3qVkSIlkMSAJFvsQrJYbaRACSRRIMlenj0UcPZlPyPHlUASB5Jsc+7cwevMc5v9jRxTAkkkSPbb+riVZYMYySuBJB4kJRUYySmBJHYkhUZ6lUASOZISIz1KIIkbSamRbiWQxIZkvT2YkS4lkESGpDV9tz2YkX9KIIkLSWs6TY+U9DFypASSqJC0OicfHSrpa2T/k5BEh6R1eDpWR8kARtIZSGJD0jo6QW1fySBGIIkOSavrlL27PwcxAklsSFo9JzFOppBAkl9ta5jTOiGJCslQRiCJCslwRiCJCcmQRiCJCMmwRiCJB8mXoU+YhyQaJM9TSCCBBBJIIIEEEkgggQQSSCCJAsnyzLA9hiQWJCfnSpBAAgkkkATXxFCnPxfU7iB5B0mAXT5Y7Z3t0Y087SDZgCTA7tX6bZ5TGSQBtlwrkgVIgmy+RiMXdiEJsp3b9Rn5nEESaC/O1/P3yMJuBkm4bX94O2rvNiKbWXRIBIkgESSCRJAIEkEiQSJIBIkgESSCRJAIEgkSQSJIBIkgESSCRIJEkAgSQSJIBIkgESQSJIJEkAgSQSJIBIkgkSARJIJEkAgSQSJIBIkEiSARJIJEkAgSQSJIJEgEiSARJIJEkAgSCRJBIkgEiSARJIJEkEiQCBJBIkgEiSARJIJEgkSQCBJBIkgEiSARJBIkgkSQ6P8gGTMDVTeWNA1B1TWTxmlTUFWnGknSaI4bhMoabzaSv+4BHFVoHZzfAAAAAElFTkSuQmCC');">
                             <!--<img id="cut_preview_image" src="" alt="No image loaded"/>-->
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="slide " id="first_slide"><h1>为图片加水印</h1></div>
-            <div class="slide"><h1>为图片加二维码</h1></div>
-            <div class="slide"><h1>压缩图片</h1></div>
-            <div class="slide"><h1>待续。。。</h1></div>
+            <div class="slide " id="first_slide">
+                <h1 class="slide_title">为图片加水印</h1></div>
+            <div class="slide">
+                <h1 class="slide_title">为图片加二维码</h1></div>
+            <div class="slide">
+                <h1 class="slide_title">压缩图片</h1></div>
+            <div class="slide">
+                <h1 class="slide_title">待续。。。</h1></div>
         </div>
-        <div class="section" id="section2"><h1>No wraps, no extra markup</h1></div>
-        <div class="section" id="section3"><h1>Just the simplest demo ever</h1></div>
     </div>
 </div>
 <script src="https://unpkg.com/file-upload-with-preview"></script>
