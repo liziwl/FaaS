@@ -43,7 +43,6 @@
         var getAuthorization = function (options, callback) {
             var method = (options.Method || 'get').toLowerCase();
             var key = options.Key || '';
-            // var url = 'http://127.0.0.1:3000/sts-post-object' +
             var url = 'http://111.230.168.122/server/sts-post-object.php' +
                 '?method=' + method +
                 '&pathname=' + encodeURIComponent('/') +
@@ -96,6 +95,68 @@
                     callback('File'+Key+'Upload failed. Please check if CORS cross domain rules are not configured.')
                 };
                 xhr.send(fd);
+                var data = {
+                    "requestContext": {
+                        "serviceName": "round_corners",
+                        "path": "/Image_process/round_corners",
+                        "httpMethod": "POST",
+                        "requestId": "",
+                        "identity": {
+                            "secretId": "AKIDUaaGn8oG8rPLNKsf2nPtFQTK0Ums6TyH"
+                        },
+                        "sourceIp": "10.0.2.14",
+                        "stage": "prod"
+                    },
+                    "headers": {
+                        "Accept-Language": "en-US,en,cn",
+                        "Accept": "text/html,application/xml,application/json",
+                        "Host": "service-mi2vlexs-1252063131.ap-guangzhou.apigateway.myqcloud.com",
+                        "User-Agent": "User Agent String"
+                    },
+                    "body": "{\"Image_process\":\"body\"}",
+                    "pathParameters": {
+                        "cos":{
+                            "cosSchemaVersion":"1.0",
+                            "cosNotificationId":"233",
+                            "cosBucket":{
+                                "name":"input",
+                                "appid":"1252063131",
+                                "region":"gz"
+                            },
+                            "cosObject":{
+                                "key":"/images-2.jpeg",
+                                "size":"1024",
+                                "meta":{
+                                    "Content-Type": "",
+                                    "x-cos-meta-test": "",
+                                    "x-image-test": ""
+                                },
+                                "url": ""
+                            }
+                        }
+                    },
+                    "queryStringParameters": {
+                        "rad":100
+                    },
+                    "headerParameters":{
+                        "Refer": "10.0.2.14"
+                    },
+                    "stageVariables": {
+                        "stage": "test"
+                    },
+                    "path": "",
+                    "httpMethod": "POST"
+                };
+                data["pathParameters"]["cos"]["cosObject"]["key"]=file.name;
+                var newData = JSON.stringify(data);
+                var trigger_xhr=new XMLHttpRequest();
+                trigger_xhr.open('POST','http://service-mi2vlexs-1252063131.ap-guangzhou.apigateway.myqcloud.com/Image_process/round_corners',true);
+                trigger_xhr.onload = function () {
+                    console.log('http://service-mi2vlexs-1252063131.ap-guangzhou.apigateway.myqcloud.com/Image_process/round_corners'); // http://example.com/test
+                };
+                trigger_xhr.send(newData);
+
+
 
             });
         }
@@ -158,6 +219,7 @@
                         url: address,
                         success: function () {
                           status_code = 200;
+                          $("#cut_preview_image").attr("src", address);
                           alert("Finish Process");
                         },
 
@@ -172,7 +234,7 @@
 
                     downloadURI(address, file.name);
                     // address="'"+address+"'";
-                    $("#cut_preview_image").attr("src", address);
+
                 }
                 else
                 {
