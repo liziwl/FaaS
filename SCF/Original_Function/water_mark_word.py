@@ -7,7 +7,7 @@ def add_num(img):
     font_size = 40
     water_text = "666666"
     position = (width/2, height/2)
-    font = ImageFont.truetype(font='/home/caesar/Repository/FaaS/SCF/Original_Function/OpenSans-Regular.ttf', size=font_size, encoding="unic")
+    font = ImageFont.truetype(font='/home/caesar/Repository/FaaS/SCF/Figure/Ubuntu-M.ttf', size=font_size, encoding="unic")
     fillcolor = "#ff0000"
     draw.textsize('66666')
     draw.text(position, water_text, font=font, fill=fillcolor)
