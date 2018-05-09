@@ -1,8 +1,8 @@
 from PIL import Image, ImageFont, ImageDraw
 
 
-def round_corner(file_addr, radius):
-    image = Image.open(file_addr)
+def round_corner(input_file_addr, radius):
+    image = Image.open(input_file_addr)
     circle = Image.new('L', (radius * 2, radius * 2), 0)
     draw = ImageDraw.Draw(circle)
     draw.ellipse((0, 0, radius * 2, radius * 2), fill=255)
