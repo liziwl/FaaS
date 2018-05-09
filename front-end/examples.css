@@ -250,13 +250,18 @@ p{
 .custom-file-container__custom-file__custom-file-control:after{
 	color: #BDBDBD;
 	font-weight: lighter;
+    padding: 5px 12px !important;
 }
 
-#file_control_bar{
-	width: calc(100% - 20px);
-	max-width: 600px;
-	height: 30px;
-	margin: 10px;
+.slide_title{
+    color: #ffffff;
+}
+
+.file_control_bar{
+	width: calc(100% - 20px) !important;
+	max-width: 600px !important;
+	height: 30px !important;
+	margin: 10px !important;
 }
 
 .control_btn{
@@ -269,4 +274,20 @@ p{
 	border-radius: .25rem;
 	color: white;
 	cursor: pointer;
+}
+
+.input_box{
+    font-family: Lato, arial, helvetica, serif;
+    color: #333;
+    border: 1px solid #c0c0af;
+    border-radius: .25rem;
+    height: 18px;
+    min-width: 50px;
+    max-width: 100px;
+    margin: 10px;
+    padding: 5px 12px;
+}
+
+.input_box::placeholder{
+    color: rgba(0,0,0,0.5);
 }
