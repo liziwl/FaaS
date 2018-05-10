@@ -155,8 +155,6 @@ def water_mark_fig(input_file_addr, water_mark_fig_addr, ratio):
     imageW, imageH = im.size
     water_mark = Image.open(water_mark_fig_addr)
     water_mark_w, water_mark_H = water_mark.size
-    QRcode_size = min(imageW * ratio, imageH * ratio)
-
     Blank = Image.new("RGB", (imageW, imageH), "white")
     pasteBox = (int((imageW-water_mark_w)/2-1), int((imageH-water_mark_H)/2-1))
     Blank.paste(water_mark, pasteBox)
@@ -179,3 +177,7 @@ def thumbnail(input_file_addr, size=(128, 128)):
     image = Image.open(input_file_addr)
     image.thumbnail(size)
     return image
+
+if __name__=="__main__":
+    water_mark_text("/home/caesar/Desktop/1.jpg", "/home/caesar/Repository/FaaS/SCF/Figure/Ubuntu-M.ttf", " 6666 ", ratio=0.2).show()
+    # water_mark_fig("/home/caesar/Desktop/12.jpg", "/home/caesar/Repository/FaaS/SCF/Figure/logo.jpeg", 0.15).show()
