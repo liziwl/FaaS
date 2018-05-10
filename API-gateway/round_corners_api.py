@@ -106,7 +106,8 @@ def main_handler(event, context):
 
                 #upload the compressed image to resized bucket
                 u_key = '{}{}'.format(file_name_p.findall(key)[0], 'png')
-                request = UploadFileRequest(u'imgp', u_key.decode('utf-8'), upload_path.decode('utf-8'))
+                request = UploadFileRequest(u'imgp', u_key.decode('utf-8'), upload_path.decode('utf-8'),insert_only=0)
+                # 0 mean overwrite
                 print("key: ",u_key)
                 upload_file_ret = cos_client.upload_file(request)
                 logger.info("upload image, return message: " + str(upload_file_ret))
