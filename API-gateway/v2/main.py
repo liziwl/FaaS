@@ -27,7 +27,7 @@ logger = logging.getLogger()
 file_name_p = re.compile(r'.+\.')
 
 
-#op == 2
+#op == 0
 def round_image(input_path, output_path, rad):
     image = round_corner(input_path, rad)
     image.save(output_path)

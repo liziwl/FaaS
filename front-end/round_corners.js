@@ -162,7 +162,7 @@ $(document).ready(function () {
                 var message = JSON.parse(response);
                 rotate_name = message.download_path;
                 rotate_status_code = 200;
-                address = "http://imgp-1254095611.cosgz.myqcloud.com" + rotate_name;
+                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + rotate_name;
                 $("#rotate_preview").css("background-image", 'url(' + address + ')');
                 alert("Finish Process");
             },
@@ -219,8 +219,8 @@ $(document).ready(function () {
                 console.log("response");
                 var message = JSON.parse(response);
                 qrcode_name = message.download_path;
-                shrink_status_code = 200;
-                address = "http://imgp-1254095611.cosgz.myqcloud.com" + qrcode_name;
+                qrcode_status_code = 200;
+                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + qrcode_name;
                 $("#qrcode_preview").css("background-image", 'url(' + address + ')');
                 alert("Finish Process");
             },
@@ -277,7 +277,7 @@ $(document).ready(function () {
                 var message = JSON.parse(response);
                 shrink_name = message.download_path;
                 shrink_status_code = 200;
-                address = "http://imgp-1254095611.cosgz.myqcloud.com" + shrink_name;
+                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + shrink_name;
                 $("#shrink_preview").css("background-image", 'url(' + address + ')');
                 alert("Finish Process");
             },
@@ -335,7 +335,7 @@ $(document).ready(function () {
                 var message = JSON.parse(response);
                 watermark_name = message.download_path;
                 watermark_status_code = 200;
-                address = "http://imgp-1254095611.cosgz.myqcloud.com" + watermark_name;
+                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + watermark_name;
                 $("#watermark_preview").css("background-image", 'url(' + address + ')');
                 alert("Finish Process");
             },

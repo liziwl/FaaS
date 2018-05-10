@@ -245,9 +245,8 @@ the first page title
     color: #ffffff;
     font-size: 300%;
 }
-#slide1
+.slide
 {
-    background-image: url(pitures/universe.jpg);
     background-position: 50%;
     position:relative;
     overflow:hidden;
@@ -256,3 +255,25 @@ the first page title
     -moz-background-size: cover;
     -o-background-size: cover;'>
 }
+
+#slide1{
+    background-image: url(pitures/starry1.jpg);
+}
+
+#slide2 {
+    background-image: url(pitures/starry2.jpg);
+}
+
+#slide3{
+    background-image: url(pitures/starry3.jpg);
+}
+
+#slide4{
+    background-image: url(pitures/starry4.jpg);
+}
+
+#slide5{
+    background-image: url(pitures/starry5.jpg);
+}
+
+
