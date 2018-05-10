@@ -291,3 +291,13 @@ p{
 .input_box::placeholder{
     color: rgba(0,0,0,0.5);
 }
+
+.image_container{
+    background-position: center center;
+    background-size: contain !important;
+    border-radius: 0 !important;
+}
+
+.container{
+    background-color: rgba(0, 0.2, 0.6, 0.5);
+}
