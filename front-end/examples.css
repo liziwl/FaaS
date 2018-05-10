@@ -59,7 +59,7 @@ body{
 	position: relative;
 }
 h1{
-	font-size: 6em;
+	font-size: 3.5em;
 }
 p{
 	font-size: 2em;
@@ -296,6 +296,7 @@ p{
     background-position: center center;
     background-size: contain !important;
     border-radius: 0 !important;
+    min-height: 400px !important;
 }
 
 .container{

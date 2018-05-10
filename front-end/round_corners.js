@@ -298,12 +298,12 @@ $(document).ready(function () {
     });
 
     /*
-    watermark
+    watermark1_character
   */
-    var watermark_status_code;
-    var watermark_name;
-    $('#watermark_upload').click(function () {
-        file = document.getElementById('watermark_file').files[0];
+    var watermark1_status_code;
+    var watermark1_name;
+    $('#watermark1_upload').click(function () {
+        file = document.getElementById('watermark1_file').files[0];
         // //圆角input
         // var percentage = document.getElementById('shrink_input').value;
         // if(!percentage || percentage<0 || percentage>1)
@@ -333,10 +333,10 @@ $(document).ready(function () {
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
-                watermark_name = message.download_path;
-                watermark_status_code = 200;
-                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + watermark_name;
-                $("#watermark_preview").css("background-image", 'url(' + address + ')');
+                watermark1_name = message.download_path;
+                watermark1_status_code = 200;
+                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + watermark1_name;
+                $("#watermark1_preview").css("background-image", 'url(' + address + ')');
                 alert("Finish Process");
             },
             error: function (error) {
@@ -344,9 +344,67 @@ $(document).ready(function () {
             }
         });
     });
-    $('#watermark_download').click(function () {
-        if (watermark_status_code === 200) {
-            downloadURI(address, watermark_name);
+    $('#watermark1_download').click(function () {
+        if (watermark1_status_code === 200) {
+            downloadURI(address, watermark1_name);
+            // address="'"+address+"'";
+        }
+        else {
+            alert("The process do not finish yet.");
+        }
+    });
+
+
+    /*
+    watermark_picture
+     */
+    var watermark2_status_code;
+    var watermark2_name;
+    $('#watermark2_upload').click(function () {
+        file = document.getElementById('watermark2_file').files[0];
+        // //圆角input
+        // var percentage = document.getElementById('shrink_input').value;
+        // if(!percentage || percentage<0 || percentage>1)
+        // {
+        //     alert(("Please input the percentage! Range[0,1]"));
+        //     return;
+        // }
+        if (!file) {
+            alert("Please choose a picture");
+            // document.getElementById('slide1').innerText='Do not choose the upload file';
+            return;
+        }
+        file && uploadFile(file, function (err, data) {
+            console.log(err || data);
+            uploadFile(file, callback());
+            alert("function");
+            alert('Upload Successfully');
+            // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
+        });
+        $.ajax({
+            type: 'POST', //访问方式
+            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/prepub/image_process?op=5', //访问地址
+            dataType: "json", //返回数据的格式 json text xml ...
+            data: {
+                "path": file.name,
+            },
+            success: function (response) {
+                console.log("response");
+                var message = JSON.parse(response);
+                watermark2_name = message.download_path;
+                watermark2_status_code = 200;
+                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + watermark2_name;
+                $("#watermark2_preview").css("background-image", 'url(' + address + ')');
+                alert("Finish Process");
+            },
+            error: function (error) {
+                console.log("访问出现错误 ")
+            }
+        });
+    });
+    $('#watermark2_download').click(function () {
+        if (watermark2_status_code === 200) {
+            downloadURI(address, watermark2_name);
             // address="'"+address+"'";
         }
         else {
