@@ -1,0 +1,52 @@
+{
+  "requestContext": {
+    "serviceName": "round_corners",
+    "path": "/Image_process/round_corners",
+    "httpMethod": "POST",
+    "requestId": "",
+    "identity": {
+      "secretId": "AKIDUaaGn8oG8rPLNKsf2nPtFQTK0Ums6TyH"
+    },
+    "sourceIp": "10.0.2.14",
+    "stage": "prod"
+  },
+  "headers": {
+    "Accept-Language": "en-US,en,cn",
+    "Accept": "text/html,application/xml,application/json",
+    "Host": "service-mi2vlexs-1252063131.ap-guangzhou.apigateway.myqcloud.com",
+    "User-Agent": "User Agent String"
+  },
+  "body": "{\"Image_process\":\"body\"}",
+  "pathParameters": {
+     "cos":{  
+            "cosSchemaVersion":"1.0",
+            "cosNotificationId":"233",
+            "cosBucket":{  
+               "name":"input",
+               "appid":"1252063131",
+               "region":"gz"
+            },
+            "cosObject":{  
+               "key":"/images-2.jpeg",
+               "size":"1024",
+               "meta":{
+                 "Content-Type": "image/jpeg",
+                 "x-cos-meta-test": "Long long ago, there is a cat",
+                 "x-image-test": "named Maomao"
+               },
+               "url": ""
+            }
+         }
+  },
+  "queryStringParameters": {
+    "rad":100
+  },
+  "headerParameters":{
+    "Refer": "10.0.2.14"
+  },
+  "stageVariables": {
+    "stage": "test"
+  },
+  "path": "",
+  "httpMethod": "POST"
+}
