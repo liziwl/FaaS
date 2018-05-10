@@ -63,7 +63,7 @@ var uploadFile=function (file, callback) {
 };
 $(document).ready(function () {
     $('#fullpage').fullpage({
-        sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#ccddff']
+        sectionsColor: ['#f2f2f2', '#4BBFC3']
         //anchors:['firstPage', 'secondPage', 'thirdPage','fourthPage']
     });
     /*
@@ -94,18 +94,17 @@ $(document).ready(function () {
         });
         $.ajax({
             type: 'POST', //访问方式
-            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/round', //访问地址
+            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/prepub/image_process?op=0', //访问地址
             dataType: "json", //返回数据的格式 json text xml ...
             data: {
                 "path": file.name,
-                "rad": 12
             },
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
                 round_name = message.download_path;
                 round_status_code = 200;
-                address = "http://imgp-1254095611.cosgz.myqcloud.com" + round_name;
+                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + round_name;
                 $("#round_preview").css("background-image", 'url(' + address + ')');
                 alert("Finish Process");
             },
@@ -153,11 +152,10 @@ $(document).ready(function () {
         });
         $.ajax({
             type: 'POST', //访问方式
-            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/round', //访问地址
+            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/prepub/image_process?op=1', //访问地址
             dataType: "json", //返回数据的格式 json text xml ...
             data: {
                 "path": file.name,
-                "option": 1
             },
             success: function (response) {
                 console.log("response");
@@ -212,11 +210,10 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST', //访问方式
-            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/round', //访问地址
+            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/prepub/image_process?op=2', //访问地址
             dataType: "json", //返回数据的格式 json text xml ...
             data: {
                 "path": file.name,
-                "option": 2
             },
             success: function (response) {
                 console.log("response");
@@ -270,11 +267,10 @@ $(document).ready(function () {
         });
         $.ajax({
             type: 'POST', //访问方式
-            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/round', //访问地址
+            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/prepub/image_process?op=3', //访问地址
             dataType: "json", //返回数据的格式 json text xml ...
             data: {
                 "path": file.name,
-                "option": 3
             },
             success: function (response) {
                 console.log("response");
@@ -329,11 +325,10 @@ $(document).ready(function () {
         });
         $.ajax({
             type: 'POST', //访问方式
-            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/round', //访问地址
+            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/prepub/image_process?op=4', //访问地址
             dataType: "json", //返回数据的格式 json text xml ...
             data: {
                 "path": file.name,
-                "option": 4
             },
             success: function (response) {
                 console.log("response");
