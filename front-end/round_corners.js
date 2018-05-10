@@ -21,7 +21,7 @@ var getAuthorization = function (options, callback) {
         }
         callback(null, {
             Authorization: data.authorization,
-            XCosSecurityToken: data.sessionToken,
+            XCosSecurityToken: data.sessionToken
         });
     };
     xhr.onerror = function (e) {
@@ -59,16 +59,13 @@ var uploadFile=function (file, callback) {
             callback('File'+Key+'Upload failed. Please check if CORS cross domain rules are not configured.')
         };
         xhr.send(fd);
-
     });
-}
+};
 $(document).ready(function () {
     $('#fullpage').fullpage({
         sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#ccddff']
         //anchors:['firstPage', 'secondPage', 'thirdPage','fourthPage']
     });
-
-
     /*
     裁剪圆角
      */
@@ -76,7 +73,6 @@ $(document).ready(function () {
     var round_name;
     $('#round_upload').click(function () {
         file = document.getElementById('round_file').files[0];
-
         // //圆角input
         // var radius = document.getElementById('round_input').value;
         // if(!radius)
@@ -95,52 +91,39 @@ $(document).ready(function () {
             alert("function");
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
-
         });
-
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/round', //访问地址
             dataType: "json", //返回数据的格式 json text xml ...
             data: {
                 "path": file.name,
-                "option": 0,
+                "rad": 12
             },
             success: function (response) {
                 console.log("response");
-
                 var message = JSON.parse(response);
-
                 round_name = message.download_path;
                 round_status_code = 200;
                 address = "http://imgp-1254095611.cosgz.myqcloud.com" + round_name;
-                $("#round_preview").attr("src", address);
+                $("#round_preview").css("background-image", 'url(' + address + ')');
                 alert("Finish Process");
             },
             error: function (error) {
                 console.log("访问出现错误 ")
             }
         });
-
-
     });
 
     $('#round_download').click(function () {
-        if (round_status_code == 200) {
-
-
+        if (round_status_code === 200) {
             downloadURI(address, round_name);
             // address="'"+address+"'";
-
         }
         else {
-
             alert("The process do not finish yet.");
         }
-
-
     });
-
 
     /*
     rotate
@@ -149,7 +132,6 @@ $(document).ready(function () {
     var rotate_name;
     $('#rotate_upload').click(function () {
         file = document.getElementById('rotate_file').files[0];
-
         // //圆角input
         // var percentage = document.getElementById('shrink_input').value;
         // if(!percentage || percentage<0 || percentage>1)
@@ -168,7 +150,6 @@ $(document).ready(function () {
             alert("function");
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
-
         });
         $.ajax({
             type: 'POST', //访问方式
@@ -176,17 +157,15 @@ $(document).ready(function () {
             dataType: "json", //返回数据的格式 json text xml ...
             data: {
                 "path": file.name,
-                "option": 1,
+                "option": 1
             },
             success: function (response) {
                 console.log("response");
-
                 var message = JSON.parse(response);
-
                 rotate_name = message.download_path;
                 rotate_status_code = 200;
                 address = "http://imgp-1254095611.cosgz.myqcloud.com" + rotate_name;
-                $("#rotate_preview").attr("src", address);
+                $("#rotate_preview").css("background-image", 'url(' + address + ')');
                 alert("Finish Process");
             },
             error: function (error) {
@@ -195,21 +174,14 @@ $(document).ready(function () {
         });
     });
     $('#rotate_download').click(function () {
-        if (rotate_status_code == 200) {
-
-
+        if (rotate_status_code === 200) {
             downloadURI(address, rotate_name);
             // address="'"+address+"'";
-
         }
         else {
-
             alert("The process do not finish yet.");
         }
-
-
     });
-
 
     /*
     QR_CODE
@@ -218,7 +190,6 @@ $(document).ready(function () {
     var qrcode_name;
     $('#qrcode_upload').click(function () {
         file = document.getElementById('qrcode_file').files[0];
-
         //圆角input
         // var percentage = document.getElementById('qrcode_input').value;
         // if(!percentage || percentage<0 || percentage>1)
@@ -237,7 +208,6 @@ $(document).ready(function () {
             alert("function");
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
-
         });
 
         $.ajax({
@@ -246,17 +216,15 @@ $(document).ready(function () {
             dataType: "json", //返回数据的格式 json text xml ...
             data: {
                 "path": file.name,
-                "option": 2,
+                "option": 2
             },
             success: function (response) {
                 console.log("response");
-
                 var message = JSON.parse(response);
-
                 qrcode_name = message.download_path;
                 shrink_status_code = 200;
                 address = "http://imgp-1254095611.cosgz.myqcloud.com" + qrcode_name;
-                $("#qrcode_preview").attr("src", address);
+                $("#qrcode_preview").css("background-image", 'url(' + address + ')');
                 alert("Finish Process");
             },
             error: function (error) {
@@ -265,21 +233,14 @@ $(document).ready(function () {
         });
     });
     $('#qrcode_download').click(function () {
-        if (qrcode_status_code == 200) {
-
-
+        if (qrcode_status_code === 200) {
             downloadURI(address, qrcode_name);
             // address="'"+address+"'";
-
         }
         else {
-
             alert("The process do not finish yet.");
         }
-
-
     });
-
 
     /*
     shrink
@@ -288,7 +249,6 @@ $(document).ready(function () {
     var shrink_name;
     $('#shrink_upload').click(function () {
         file = document.getElementById('shrink_file').files[0];
-
         // //圆角input
         // var percentage = document.getElementById('shrink_input').value;
         // if(!percentage || percentage<0 || percentage>1)
@@ -307,27 +267,22 @@ $(document).ready(function () {
             alert("function");
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
-
         });
-
-
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/round', //访问地址
             dataType: "json", //返回数据的格式 json text xml ...
             data: {
                 "path": file.name,
-                "option": 3,
+                "option": 3
             },
             success: function (response) {
                 console.log("response");
-
                 var message = JSON.parse(response);
-
                 shrink_name = message.download_path;
                 shrink_status_code = 200;
                 address = "http://imgp-1254095611.cosgz.myqcloud.com" + shrink_name;
-                $("#shrink_preview").attr("src", address);
+                $("#shrink_preview").css("background-image", 'url(' + address + ')');
                 alert("Finish Process");
             },
             error: function (error) {
@@ -337,22 +292,14 @@ $(document).ready(function () {
 
     });
     $('#shrink_download').click(function () {
-        if (shrink_status_code == 200) {
-
-
+        if (shrink_status_code === 200) {
             downloadURI(address, shrink_name);
             // address="'"+address+"'";
-
         }
         else {
-
             alert("The process do not finish yet.");
         }
-
-
     });
-
-
 
     /*
     watermark
@@ -361,7 +308,6 @@ $(document).ready(function () {
     var watermark_name;
     $('#watermark_upload').click(function () {
         file = document.getElementById('watermark_file').files[0];
-
         // //圆角input
         // var percentage = document.getElementById('shrink_input').value;
         // if(!percentage || percentage<0 || percentage>1)
@@ -380,49 +326,37 @@ $(document).ready(function () {
             alert("function");
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
-
         });
-
-
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/round', //访问地址
             dataType: "json", //返回数据的格式 json text xml ...
             data: {
                 "path": file.name,
-                "option": 4,
+                "option": 4
             },
             success: function (response) {
                 console.log("response");
-
                 var message = JSON.parse(response);
-
                 watermark_name = message.download_path;
                 watermark_status_code = 200;
                 address = "http://imgp-1254095611.cosgz.myqcloud.com" + watermark_name;
-                $("#watermark_preview").attr("src", address);
+                $("#watermark_preview").css("background-image", 'url(' + address + ')');
                 alert("Finish Process");
             },
             error: function (error) {
                 console.log("访问出现错误 ")
             }
         });
-
     });
     $('#watermark_download').click(function () {
-        if (watermark_status_code == 200) {
-
-
+        if (watermark_status_code === 200) {
             downloadURI(address, watermark_name);
             // address="'"+address+"'";
-
         }
         else {
-
             alert("The process do not finish yet.");
         }
-
-
     });
 });
 
