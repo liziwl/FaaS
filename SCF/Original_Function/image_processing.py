@@ -162,3 +162,20 @@ def water_mark_fig(input_file_addr, water_mark_fig_addr, ratio):
     Blank.paste(water_mark, pasteBox)
     waterImage = Image.blend(im, Blank, 0.2)
     return waterImage
+
+def thumbnail(input_file_addr, size=(128, 128)):
+    """
+    Create thumbnail for figure
+
+    Parameters
+    ----------
+    input_file_addr: The input figure address
+    size: The size of thumbnail (defaule (128, 128))
+
+    Returns
+    -------
+    image object
+    """
+    image = Image.open(input_file_addr)
+    image.thumbnail(size)
+    return image
