@@ -26,9 +26,17 @@ CS304 Software Engineering Project
 
 ### TODO
 
-- [ ] ~~比例裁剪~~
+- [ ] 参数自定义
 - [ ] 画风迁移
-- [ ] 图片无损放大
+- [ ] 图片格式转换
+- [ ] 缩略填充
+- [ ] 索引切割
+- [ ] 图文混合水印
+- [ ] 获取图片信息
+- [ ] API 文档
+- [ ] 产品化
+
+
 
 Tutor: [Stone](https://cloud.tencent.com/developer/user/561187/activities) 
 
