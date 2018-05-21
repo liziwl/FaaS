@@ -42,6 +42,7 @@ Tutor: [Stone](https://cloud.tencent.com/developer/user/561187/activities)
 * [命令行工具 文档](https://cloud.tencent.com/document/product/440)
 * [用 FaaS 实现比优图更灵活的大量图片快速加工能力](https://cloud.tencent.com/developer/article/1011234)
 * [Pillow official doc](https://pillow.readthedocs.io/en/latest/) -- Python图片处理库
+* [阿里云 图片处理指南](https://www.alibabacloud.com/help/zh/doc-detail/44688.htm)
 
 ### 示例
 
