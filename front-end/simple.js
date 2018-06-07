@@ -30,7 +30,12 @@ var getAuthorization = function (options, callback) {
     xhr.send();
 };
 
-var address;
+var round_address;
+var rotate_address;
+var qrcode_address;
+var shrink_address;
+var watermark1_address;
+var watermark2_address;
 
 var uploadFile=function (file, callback) {
     var Key = file.name;
@@ -104,8 +109,8 @@ $(document).ready(function () {
                 var message = JSON.parse(response);
                 round_name = message.download_path;
                 round_status_code = 200;
-                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + round_name;
-                $("#round_preview").css("background-image", 'url(' + address + ')');
+                round_address = "http://imgp-1254095611.cosgz.myqcloud.com/" + round_name+"?t="+Math.random();
+                $("#round_preview").css("background-image", 'url(' + round_address + ')');
                 alert("Finish Process");
             },
             error: function (error) {
@@ -116,7 +121,7 @@ $(document).ready(function () {
 
     $('#round_download').click(function () {
         if (round_status_code === 200) {
-            downloadURI(address, round_name);
+            downloadURI(round_address, round_name);
             // address="'"+address+"'";
         }
         else {
@@ -162,8 +167,8 @@ $(document).ready(function () {
                 var message = JSON.parse(response);
                 rotate_name = message.download_path;
                 rotate_status_code = 200;
-                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + rotate_name;
-                $("#rotate_preview").css("background-image", 'url(' + address + ')');
+                rotate_address = "http://imgp-1254095611.cosgz.myqcloud.com/" + rotate_name+"?t="+Math.random();
+                $("#rotate_preview").css("background-image", 'url(' + rotate_address + ')');
                 alert("Finish Process");
             },
             error: function (error) {
@@ -173,7 +178,7 @@ $(document).ready(function () {
     });
     $('#rotate_download').click(function () {
         if (rotate_status_code === 200) {
-            downloadURI(address, rotate_name);
+            downloadURI(rotate_address, rotate_name);
             // address="'"+address+"'";
         }
         else {
@@ -220,8 +225,8 @@ $(document).ready(function () {
                 var message = JSON.parse(response);
                 qrcode_name = message.download_path;
                 qrcode_status_code = 200;
-                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + qrcode_name;
-                $("#qrcode_preview").css("background-image", 'url(' + address + ')');
+                qrcode_address = "http://imgp-1254095611.cosgz.myqcloud.com/" + qrcode_name+"?t="+Math.random();
+                $("#qrcode_preview").css("background-image", 'url(' + qrcode_address + ')');
                 alert("Finish Process");
             },
             error: function (error) {
@@ -231,7 +236,7 @@ $(document).ready(function () {
     });
     $('#qrcode_download').click(function () {
         if (qrcode_status_code === 200) {
-            downloadURI(address, qrcode_name);
+            downloadURI(qrcode_address, qrcode_name);
             // address="'"+address+"'";
         }
         else {
@@ -277,8 +282,8 @@ $(document).ready(function () {
                 var message = JSON.parse(response);
                 shrink_name = message.download_path;
                 shrink_status_code = 200;
-                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + shrink_name;
-                $("#shrink_preview").css("background-image", 'url(' + address + ')');
+                shrink_address = "http://imgp-1254095611.cosgz.myqcloud.com/" + shrink_name+"?t="+Math.random();
+                $("#shrink_preview").css("background-image", 'url(' + shrink_address + ')');
                 alert("Finish Process");
             },
             error: function (error) {
@@ -289,7 +294,7 @@ $(document).ready(function () {
     });
     $('#shrink_download').click(function () {
         if (shrink_status_code === 200) {
-            downloadURI(address, shrink_name);
+            downloadURI(shrink_address, shrink_name);
             // address="'"+address+"'";
         }
         else {
@@ -335,8 +340,8 @@ $(document).ready(function () {
                 var message = JSON.parse(response);
                 watermark1_name = message.download_path;
                 watermark1_status_code = 200;
-                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + watermark1_name;
-                $("#watermark1_preview").css("background-image", 'url(' + address + ')');
+                watermark1_address = "http://imgp-1254095611.cosgz.myqcloud.com/" + watermark1_name+"?t="+Math.random();
+                $("#watermark1_preview").css("background-image", 'url(' + watermark1_address + ')');
                 alert("Finish Process");
             },
             error: function (error) {
@@ -346,7 +351,7 @@ $(document).ready(function () {
     });
     $('#watermark1_download').click(function () {
         if (watermark1_status_code === 200) {
-            downloadURI(address, watermark1_name);
+            downloadURI(watermark1_address, watermark1_name);
             // address="'"+address+"'";
         }
         else {
@@ -393,8 +398,8 @@ $(document).ready(function () {
                 var message = JSON.parse(response);
                 watermark2_name = message.download_path;
                 watermark2_status_code = 200;
-                address = "http://imgp-1254095611.cosgz.myqcloud.com/" + watermark2_name;
-                $("#watermark2_preview").css("background-image", 'url(' + address + ')');
+                watermark2_address = "http://imgp-1254095611.cosgz.myqcloud.com/" + watermark2_name;
+                $("#watermark2_preview").css("background-image", 'url(' + watermark2_address + ')');
                 alert("Finish Process");
             },
             error: function (error) {
@@ -404,7 +409,7 @@ $(document).ready(function () {
     });
     $('#watermark2_download').click(function () {
         if (watermark2_status_code === 200) {
-            downloadURI(address, watermark2_name);
+            downloadURI(watermark2_address, watermark2_name);
             // address="'"+address+"'";
         }
         else {
