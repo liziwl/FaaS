@@ -177,6 +177,9 @@ def main_handler(event, context):
     download_bucket = u'imgps'
     upload_bucket = u'imgp'
     file_local_path = "/temp/{}".format(input_json["file_name"])
+    upload_path = "/temp/processed-{0}".format(input_json["file_name"])
+    op = input_json["op"]
+    file_cnt = 1
 
     try:
         if(download(download_bucket, input_json["file_name"], file_local_path, cos_client) == -1):
@@ -249,3 +252,8 @@ def main_handler(event, context):
 
     endtime = datetime.datetime.now()
     logger.info("processing image take " + str((endtime - starttime).microseconds / 1000) + "ms")
+    upload(upload_bucket, input_json["file_name"], upload_path, cos_client)
+    delete_local_file(str(download_path))
+    delete_local_file(str(upload_path))
+    return_json = {"file_cnt": file_cnt, "data": upload_path}
+    return json.dumps(return_json)
