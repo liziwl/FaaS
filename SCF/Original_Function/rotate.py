@@ -25,6 +25,5 @@ def rotate(input_file_addr, angle):
                 pixdata[x, y] = (255, 255, 255, 0)
     return image
 
-
 if __name__ == "__main__":
     rotate("/home/caesar/Desktop/1.jpg", 45).show()
