@@ -27,4 +27,4 @@ def rotate(input_file_addr, angle):
 
 
 if __name__ == "__main__":
-    rotate("/home/caesar/Desktop/1.png", 45).show()
+    rotate("/home/caesar/Desktop/1.jpg", 45).show()
