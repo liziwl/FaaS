@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw, ImageFont
 import math
 
 
-def water_mark_Font(input_file_addr, font_style_addr, text, size_ratio=0.2, angle=30, clear=0.2, position=3, fixed=0):
+def water_mark_text(input_file_addr, font_style_addr, text, size_ratio=0.2, angle=30, clear=0.2, position=3, fixed=0):
     """
     Add text water mark
 
@@ -79,5 +79,5 @@ def water_mark_Font(input_file_addr, font_style_addr, text, size_ratio=0.2, angl
 
 
 if __name__ == "__main__":
-    water_mark_Font("/home/caesar/Repository/FaaS/SCF/Figure/xiaoshi.png",
+    water_mark_text("/home/caesar/Repository/FaaS/SCF/Figure/xiaoshi.png",
                     "/home/caesar/Repository/FaaS/SCF/Figure/Ubuntu-M.ttf", " 6666 ", 0.2, 10, 0.2, position=(100, 100), fixed=1).show()
