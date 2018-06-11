@@ -35,6 +35,9 @@
         },
         "rotate": {
             "angle": 30
+        },
+        "convert_format": {
+            "postfix": "png"
         }
     }
 }
