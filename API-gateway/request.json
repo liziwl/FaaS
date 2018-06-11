@@ -1,0 +1,25 @@
+{
+    "file_name": "foo.jpg",
+    "op": 2,
+    "op_par": {
+        "rad": 50,
+        "rotate_angle": 90.44,
+        "qr_content": {
+            "content": "FaaS",
+            "pos": 5
+        },
+        "thumb_size": {
+            "height": 123,
+            "width": 123
+        },
+        "mark_text": {
+            "content": "FaaS",
+            "font_name": "font.ttf",
+            "ratio": 20
+        },
+        "mark_img": {
+            "patch": "mark.jpg",
+            "ratio": 20
+        }
+    }
+}

@@ -63,6 +63,18 @@ def img_watermark_image(input_path, output_path,patch_addr,ratio):
     image.save(output_path)
     print("-----{}-----".format(output_path))
 
+#op == 6
+def convert_format_image(input_path, output_path, img_format):
+    """
+    Convert image format
+    img_format should be str
+    img_format can be png, jpg, etc....
+    For the detail see: https://pillow.readthedocs.io/en/3.1.x/handbook/image-file-formats.html
+    """
+    image = Image.open(input_path)
+    image.save(output_path, img_format)
+    print("-----{}-----".format(output_path))
+
 
 
 def delete_local_file(src):
