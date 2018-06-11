@@ -135,14 +135,15 @@ def rotate(input_file_addr, angle):
     return image
 
 
-def round_corner(input_file_addr, ratio=0.15):
+def round_corner(input_file_addr, radius=0.15, fixed=0):
     """
     Rounding corner to figure
 
     Parameters
     ----------
     input_file_addr: The address of input figure
-    ratio: The size of round corner
+    radius: If fixed = 0, radius represent in ratio; If fixed = 1, radius represent in pixel;
+    fixed: 0 for using relative position, 1 for using fixed pixel position. (default = 0)
 
     Returns
     -------
@@ -151,7 +152,13 @@ def round_corner(input_file_addr, ratio=0.15):
     """
     image = Image.open(input_file_addr)
     imageW, imageH = image.size
-    radius = (int)(min(imageW, imageH) * ratio)
+    if fixed == 0:
+        if radius >= 0.5:
+            radius = 0.5
+        radius = (int)(min(imageW, imageH) * radius)
+    else:
+        radius = min(radius, imageW / 2, imageH / 2)
+
     circle = Image.new('L', (radius * 2, radius * 2), 0)
     draw = ImageDraw.Draw(circle)
     draw.ellipse((0, 0, radius * 2, radius * 2), fill=255)
