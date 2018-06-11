@@ -25,7 +25,7 @@ def add_QRCode(input_file_addr, QRCode_text, position=5):
     """
     image = Image.open(input_file_addr)
     imageW, imageH = image.size
-    QRcode_size = min(imageW/4, imageH/4)
+    QRcode_size = min(imageW / 4, imageH / 4)
     QRcode_size = (QRcode_size, QRcode_size)
     QRcode = qrcode.make(QRCode_text)
     QRcode = QRcode.resize(QRcode_size, Image.ANTIALIAS)
@@ -35,7 +35,7 @@ def add_QRCode(input_file_addr, QRCode_text, position=5):
     elif(position == 2):
         image.paste(QRcode, (imageW - QRcodeW, 0))
     elif(position == 3):
-        image.paste(QRcode, ((imageW - QRcodeW)/2, (imageH - QRcodeH)/2))
+        image.paste(QRcode, ((imageW - QRcodeW) / 2, (imageH - QRcodeH) / 2))
     elif(position == 4):
         image.paste(QRcode, (0, imageH - QRcodeH))
     else:
@@ -58,7 +58,15 @@ def rotate(input_file_addr, angle):
     figure object
     """
     image = Image.open(input_file_addr)
-    image = image.rotate(angle)
+    image = image.rotate(angle, expand=1)
+    image = image.convert("RGBA")
+
+    pixdata = image.load()
+    width, height = image.size
+    for y in xrange(height):
+        for x in xrange(width):
+            if pixdata[x, y] == (0, 0, 0, 255):
+                pixdata[x, y] = (255, 255, 255, 0)
     return image
 
 
@@ -111,27 +119,27 @@ def water_mark_text(input_file_addr, font_style_addr, text, ratio=0.2):
     image = Image.open(input_file_addr)
     imageW, imageH = image.size
 
-    textImageW = int(imageW*1.5)
-    textImageH = int(imageH*1.5)
+    textImageW = int(imageW * 1.5)
+    textImageH = int(imageH * 1.5)
     blank = Image.new("RGB", (textImageW, textImageH), "white")
     d = ImageDraw.Draw(blank)
     k = (int)(min(imageH, imageW) * ratio)
     Font = ImageFont.truetype(font_style_addr, k, encoding="unic")
     textW, textH = Font.getsize(text)
     d.ink = 0 + 0 * 256 + 0 * 256 * 256
-    d.text([(textImageW-textW)/2, (textImageH-textH)/2], text, font=Font)
+    d.text([(textImageW - textW) / 2, (textImageH - textH) / 2], text, font=Font)
 
     textRotate = blank.rotate(30)
-    rLen = math.sqrt((textW/2)**2+(textH/2)**2)
-    oriAngle = math.atan(textH/textW)
-    cropW = rLen*math.cos(oriAngle + math.pi/6) * 2
-    cropH = rLen*math.sin(oriAngle + math.pi/6) * 2
-    box = [int((textImageW-cropW)/2-1), int((textImageH-cropH)/2-1)-50,
-           int((textImageW+cropW)/2+1), int((textImageH+cropH)/2+1)]
+    rLen = math.sqrt((textW / 2)**2 + (textH / 2)**2)
+    oriAngle = math.atan(textH / textW)
+    cropW = rLen * math.cos(oriAngle + math.pi / 6) * 2
+    cropH = rLen * math.sin(oriAngle + math.pi / 6) * 2
+    box = [int((textImageW - cropW) / 2 - 1), int((textImageH - cropH) / 2 - 1) - 50,
+           int((textImageW + cropW) / 2 + 1), int((textImageH + cropH) / 2 + 1)]
     textIm = textRotate.crop(box)
     pasteW, pasteH = textIm.size
     textBlank = Image.new("RGB", (imageW, imageH), "white")
-    pasteBox = (int((imageW-pasteW)/2-1), int((imageH-pasteH)/2-1))
+    pasteBox = (int((imageW - pasteW) / 2 - 1), int((imageH - pasteH) / 2 - 1))
     textBlank.paste(textIm, pasteBox)
     waterImage = Image.blend(image, textBlank, 0.2)
     return waterImage
@@ -156,10 +164,12 @@ def water_mark_fig(input_file_addr, water_mark_fig_addr, ratio):
     water_mark = Image.open(water_mark_fig_addr)
     water_mark_w, water_mark_H = water_mark.size
     Blank = Image.new("RGB", (imageW, imageH), "white")
-    pasteBox = (int((imageW-water_mark_w)/2-1), int((imageH-water_mark_H)/2-1))
+    pasteBox = (int((imageW - water_mark_w) / 2 - 1),
+                int((imageH - water_mark_H) / 2 - 1))
     Blank.paste(water_mark, pasteBox)
     waterImage = Image.blend(im, Blank, 0.2)
     return waterImage
+
 
 def thumbnail(input_file_addr, size=(128, 128)):
     """
@@ -178,6 +188,8 @@ def thumbnail(input_file_addr, size=(128, 128)):
     image.thumbnail(size)
     return image
 
-if __name__=="__main__":
-    water_mark_text("/home/caesar/Desktop/1.jpg", "/home/caesar/Repository/FaaS/SCF/Figure/Ubuntu-M.ttf", " 6666 ", ratio=0.2).show()
+
+if __name__ == "__main__":
+    water_mark_text("/home/caesar/Desktop/1.png",
+                    "/home/caesar/Repository/FaaS/SCF/Figure/Ubuntu-M.ttf", " 6666 ", ratio=0.2).show()
     # water_mark_fig("/home/caesar/Desktop/12.jpg", "/home/caesar/Repository/FaaS/SCF/Figure/logo.jpeg", 0.15).show()
