@@ -15,9 +15,9 @@ from qcloud_cos import UploadFileRequest
 from PIL import Image, ImageDraw, ImageFont
 
 
-def round_image(input_path, output_path, rad):
+def round_image(input_path, output_path, rad, fixed):
     #op == 0
-    image = round_corner(input_path, rad)
+    image = round_corner(input_path, rad, fixed)
     image.save(output_path)
     print("-----{}-----".format(output_path))
 
@@ -29,9 +29,9 @@ def rotate_image(input_path, output_path, angle):
     print("-----{}-----".format(output_path))
 
 
-def qrcode_image(input_path, output_path, text):
+def qrcode_image(input_path, output_path, QRCode_text, position, fixed):
     #op == 2
-    image = add_QRCode(input_path, text)
+    image = add_QRCode(input_path, QRCode_text, position, fixed)
     image.save(output_path)
     print("-----{}-----".format(output_path))
 
@@ -43,16 +43,16 @@ def thumbnail_image(input_path, output_path, size):
     print("-----{}-----".format(output_path))
 
 
-def text_watermark_image(input_path, output_path, text, ttf_addr, ratio):
+def text_watermark_image(input_path, output_path, text, ttf_addr, size_ratio, angle, clear, position, fixed):
     #op == 4
-    image = water_mark_text(input_path, ttf_addr, text, ratio)
+    image = water_mark_text(input_path, ttf_addr, text, size_ratio, angle, clear, position, fixed)
     image.save(output_path)
     print("-----{}-----".format(output_path))
 
 
-def img_watermark_image(input_path, output_path, patch_addr, ratio):
+def img_watermark_image(input_path, output_path, patch_addr, clear, position, fixed):
     #op == 5
-    image = water_mark_fig(input_path, patch_addr)
+    image = water_mark_fig(input_path, patch_addr, clear, position, fixed)
     image.save(output_path)
     print("-----{}-----".format(output_path))
 
@@ -68,6 +68,18 @@ def convert_format_image(input_path, output_path, img_format):
     image = Image.open(input_path)
     image.save(output_path, img_format)
     print("-----{}-----".format(output_path))
+
+def slice_image(input_path, slice_number, direction):
+    #op == 7
+    image = slice(input_path, slice_number, direction)
+    upload_path = []
+    counter = 0
+    for im in image:
+        name = "process-{0}-{1}".format(counter, input_json["file_name"])
+        upload_path.append("/temp/" + name)
+        im.save(upload_path[counter])
+        print("-----{}-----".format(upload_path[counter]))
+    return upload_path
 
 
 def delete_local_file(src):
@@ -193,13 +205,13 @@ def main_handler(event, context):
         logger.info("Image round_corner function start")
         starttime = datetime.datetime.now()
         # round corner for image here
-        # rad = event['queryStringParameters']['rad']
-        rad = 0.15
-        round_image(download_path, upload_path, rad)
+        fixed = input_json["op_par"]["round_corner"]["fixed"]
+        rad = input_json["op_par"]["round_corner"]["radius"]
+        round_image(download_path, upload_path, rad, fixed)
     elif op == 1:
         logger.info("Image rotate function start")
         starttime = datetime.datetime.now()
-        angle = 90
+        angle = input_json["op_par"]["rotate"]["angle"]
         rotate_image(download_path, upload_path, angle)
     elif op == 2:
         logger.info("Image add_QRCode function start")
@@ -246,6 +258,10 @@ def main_handler(event, context):
             print("Error in downloading patch")
             raise e
         img_watermark_image(download_path, upload_path, patch_path, ratio)
+    elif op == 6:
+        logger.info("Image format convert start")
+        starttime = datetime.datetime.now()
+        convert_format_image(download_path, upload_path, input_json["op_par"]["convert_format"]["postfix"])
     else:
         print("Error operation!")
         raise e
