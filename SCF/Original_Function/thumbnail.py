@@ -20,4 +20,4 @@ def thumbnail(input_file_addr, size=(128, 128)):
 
 
 if __name__ == "__main__":
-    thumbnail("/home/caesar/Repository/FaaS/SCF/Figure/xiaoshi.png").show()
+    thumbnail("/home/caesar/Desktop/1.jpg").show()

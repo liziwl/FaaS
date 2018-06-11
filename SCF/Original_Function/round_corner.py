@@ -40,5 +40,4 @@ def round_corner(input_file_addr, radius=0.15, fixed=0):
 
 
 if __name__ == "__main__":
-    round_corner(
-        "/home/caesar/Desktop/1.jpg", 100, fixed=0).show()
+    round_corner("/home/caesar/Desktop/1.jpg", 100, fixed=0).show()
