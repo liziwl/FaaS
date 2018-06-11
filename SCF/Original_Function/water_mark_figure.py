@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 
 
-def water_mark_fig(input_file_addr, water_mark_fig_addr, ratio, position, fixed):
+def water_mark_fig(input_file_addr, water_mark_fig_addr, clear, position, fixed):
     """
     Add figure water mark
 
@@ -18,7 +18,7 @@ def water_mark_fig(input_file_addr, water_mark_fig_addr, ratio, position, fixed)
     ----------
     input_file_addr: The address for input figure
     water_mark_fig_addr: The address for water mark
-    ratio: How clear the water mark is
+    clear: How clear the water mark is
     position: When fixed = 0, the position of QR Code (5 for default). When fixed = 1, the position is the pixel point in the original graph (width, height).
     fixed: 0 for using relative position, 1 for using fixed pixel position. (default = 0)
 
@@ -52,7 +52,7 @@ def water_mark_fig(input_file_addr, water_mark_fig_addr, ratio, position, fixed)
 
     Blank = Image.new("RGB", (imageW, imageH), "white")
     Blank.paste(water_mark, pasteBox)
-    waterImage = Image.blend(image, Blank, ratio)
+    waterImage = Image.blend(image, Blank, clear)
     return waterImage
 
 
