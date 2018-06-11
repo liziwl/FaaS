@@ -51,6 +51,19 @@ def thumbnail_image(input_path, output_path, size):
     image.save(output_path)
     print("-----{}-----".format(output_path))
 
+#op == 4
+def text_watermark_image(input_path, output_path,text,ttf_addr,ratio):
+    image = water_mark_text(input_path, ttf_addr, text, ratio)
+    image.save(output_path)
+    print("-----{}-----".format(output_path))
+
+#op == 5
+def img_watermark_image(input_path, output_path,patch_addr,ratio):
+    image = water_mark_fig(input_path, patch_addr, ratio)
+    image.save(output_path)
+    print("-----{}-----".format(output_path))
+
+
 
 def delete_local_file(src):
     logger.info("delete files and folders")
@@ -130,7 +143,56 @@ def main_handler(event, context):
                     thumbnail_image(download_path, upload_path, size)
                     endtime = datetime.datetime.now()
                     logger.info("processing image take " + str((endtime-starttime).microseconds/1000) + "ms")
-                #upload the processed image to resized bucket
+                elif op == 4:
+                    logger.info("Image water_mark_text function start")
+                    starttime = datetime.datetime.now()
+                    text = " SUSTech "
+                    ratio = 0.2
+                    # download ttf
+                    try:
+                        ttf_bucket=u'stuff'
+                        ttf_name = '/UbuntuM.ttf'
+                        ttf_path = '/tmp{}'.format(ttf_name)
+                        print("font is " + ttf_name) # file name in bucket
+                        print("Get from [%s] to download file [%s]" %(ttf_bucket, ttf_name))
+                        request = DownloadFileRequest(ttf_bucket, ttf_name, ttf_path)
+                        download_file_ret = cos_client.download_file(request)
+                        if download_file_ret['code'] != 0:
+                            logger.info("Fail Download file [%s]" % ttf_name)
+                        else:
+                            logger.info("SUC Download file [%s]" % ttf_name)
+                        text_watermark_image(download_path, upload_path,text,ttf_path,ratio)
+                        endtime = datetime.datetime.now()
+                        logger.info("processing image take " + str((endtime-starttime).microseconds/1000) + "ms")
+                    except Exception as e:
+                        print(e)
+                        print('Error getting object {} from bucket {}. Make sure the object exists and your bucket is in the same region as this function.'.format(ttf_name, ttf_bucket))
+                        raise e
+                elif op == 5:
+                    logger.info("Image water_mark_img function start")
+                    starttime = datetime.datetime.now()
+                    ratio = 0.2
+                    # download patch
+                    try:
+                        patch_bucket=u'stuff'
+                        patch_name = '/logo.jpeg'
+                        patch_path = '/tmp{}'.format(patch_name)
+                        print("patch is " + patch_name) # file name in bucket
+                        print("Get from [%s] to download file [%s]" %(patch_bucket, patch_name))
+                        request = DownloadFileRequest(patch_bucket, patch_name, patch_path)
+                        download_file_ret = cos_client.download_file(request)
+                        if download_file_ret['code'] != 0:
+                            logger.info("Fail Download file [%s]" % patch_name)
+                        else:
+                            logger.info("SUC Download file [%s]" % patch_name)
+                        img_watermark_image(download_path,upload_path,patch_path,ratio)
+                        endtime = datetime.datetime.now()
+                        logger.info("processing image take " + str((endtime-starttime).microseconds/1000) + "ms")
+                    except Exception as e:
+                        print(e)
+                        print('Error getting object {} from bucket {}. Make sure the object exists and your bucket is in the same region as this function.'.format(patch_name, ttf_bucket))
+                        raise e
+                #upload the processed image
                 up_key = "/"+upload_name
                 request = UploadFileRequest(upload_bucket, up_key.decode('utf-8'), upload_path.decode('utf-8'),insert_only=0)
                 upload_file_ret = cos_client.upload_file(request)
@@ -145,5 +207,5 @@ def main_handler(event, context):
                 return -1
         except Exception as e:
             print(e)
-            print('Error getting object {} from bucket {}. Make sure the object exists and your bucket is in the same region as this function.'.format(key, bucket))
+            print('Error getting object {} from bucket {}. Make sure the object exists and your bucket is in the same region as this function.'.format(key, download_bucket))
             raise e
