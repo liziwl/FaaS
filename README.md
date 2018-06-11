@@ -1,9 +1,11 @@
-# FaaS Based Massive Data Processing Cloud Service 
+# FaaS
+
+![](https://img.shields.io/badge/FaaS-v1.0.0-orange.svg)
+![](https://img.shields.io/badge/license-MIT-blue.svg)
 
 CS304 Software Engineering Project
 
 ![projetc](./project.png)
-
 
 ## Progress
 
