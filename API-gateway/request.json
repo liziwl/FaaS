@@ -2,11 +2,13 @@
     "file_name": "foo.jpg",
     "op": 2,
     "op_par": {
-        "rad": 50,
-        "rotate_angle": 90.44,
         "qr_content": {
             "content": "FaaS",
-            "pos": 5
+            "position": 3,
+            "fixed": 0
+        },
+        "round_corner": {
+            "radius": 10
         },
         "thumb_size": {
             "height": 123,
@@ -15,11 +17,24 @@
         "mark_text": {
             "content": "FaaS",
             "font_name": "font.ttf",
-            "ratio": 20
+            "size_ratio": 0.2,
+            "rotate_angle": 30,
+            "clear_ratio": 0.2,
+            "position": 3,
+            "fixed": 0
         },
         "mark_img": {
             "patch": "mark.jpg",
-            "ratio": 20
+            "clear_ratio": 0.2,
+            "position": 3,
+            "fixed": 0
+        },
+        "slice": {
+            "num": 5,
+            "direction": 1
+        },
+        "rotate": {
+            "angle": 30
         }
     }
 }
