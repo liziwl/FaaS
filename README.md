@@ -18,9 +18,9 @@ CS304 Software Engineering Project
 
 ## TODO
 
-- [ ] 参数自定义
+- [x] 参数自定义
 - [x] 图片格式转换
-- [ ] 索引切割
+- [x] 索引切割
 - [ ] 获取/抹除图片元数据
 - [ ] API 文档
 - [ ] 产品化
