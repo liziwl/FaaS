@@ -17,14 +17,14 @@ CS304 Software Engineering Project
 - [x] 圆角处理 -- @liziwl
 - [x] 前端页面 -- @zcy013 @yulianmiao
 - [x] API gateway -- @spacebody
-
-## TODO
-
 - [x] 参数自定义
 - [x] 图片格式转换
 - [x] 索引切割
+- [x] API 文档
+
+## TODO
+
 - [ ] 获取/抹除图片元数据
-- [ ] API 文档
 - [ ] 产品化
 
 
@@ -52,7 +52,7 @@ Tencent: [Stone](https://cloud.tencent.com/developer/user/561187/activities)
 * [获取COS上的图像并创建缩略图](https://cloud.tencent.com/document/product/583/9734)
 * [使用API网关提供API服务](https://cloud.tencent.com/document/product/583/13197)
 
-### Authors
+### Organization
 
 - WeChat Group: 南科大腾讯 FaaS 项目组
 
