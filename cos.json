@@ -1,0 +1,38 @@
+{  
+   "Records":[  
+      {
+        "event": {
+          "eventVersion":"1.0",
+          "eventSource":"qcs::cos",
+          "eventName":"cos: ObjectCreated: *",
+          "eventTime":1501054710,
+          "eventQueue":"qcs:0:cos:gz:1251111111:cos",
+          "requestParameters":{
+            "requestSourceIP": "",
+            "requestHeaders":{
+              "Authorization": ""
+            }
+          }
+         },
+      "cos":{  
+            "cosSchemaVersion":"1.0",
+            "cosNotificationId":"233",
+            "cosBucket":{  
+               "name":"input-1252063131",
+               "appid":"1252063131",
+               "region":"gz"
+            },
+            "cosObject":{  
+               "key":"/images-2.jpeg",
+               "size":"1024",
+               "meta":{
+                 "Content-Type": "image/jpeg",
+                 "x-cos-meta-test": "Long long ago, there is a cat",
+                 "x-image-test": "named Maomao"
+               },
+               "url": ""
+            }
+         }
+      }
+   ]
+}

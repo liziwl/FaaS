@@ -1,0 +1,59 @@
+{
+    "file_name": "foo.jpg",
+    "op": 2,
+    "op_par": {
+        "qr_content": {
+            "content": "FaaS",
+            "position": {
+                "width": 123,
+                "height": 123,
+                "type": 1
+            },
+            "fixed": 0
+        },
+        "round_corner": {
+            "radius": 10,
+            "fixed": 0
+        },
+        "thumbnaill": {
+            "size":{
+                "width": 123,
+                "height": 123,
+                "type": 1
+            }
+        },
+        "mark_text": {
+            "content": "FaaS",
+            "font_name": "font.ttf",
+            "size_ratio": 0.2,
+            "rotate_angle": 30,
+            "clear_ratio": 0.2,
+            "position": {
+                "width": 123,
+                "height": 123,
+                "type": 1
+            },
+            "fixed": 0
+        },
+        "mark_img": {
+            "patch": "mark.jpg",
+            "clear_ratio": 0.2,
+            "position": {
+                "width": 123,
+                "height": 123,
+                "type": 1
+            },
+            "fixed": 0
+        },
+        "slice": {
+            "num": 5,
+            "direction": 1
+        },
+        "rotate": {
+            "angle": 30
+        },
+        "convert_format": {
+            "postfix": "png"
+        }
+    }
+}
