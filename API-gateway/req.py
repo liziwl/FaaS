@@ -193,6 +193,7 @@ def main_handler(event, context):
     op = input_json["op"]
     file_cnt = 1
 
+
     try:
         if(download(download_bucket, input_json["file_name"], file_local_path, cos_client) == -1):
             raise e
@@ -207,31 +208,37 @@ def main_handler(event, context):
         # round corner for image here
         fixed = input_json["op_par"]["round_corner"]["fixed"]
         rad = input_json["op_par"]["round_corner"]["radius"]
-        round_image(download_path, upload_path, rad, fixed)
+        round_image(file_local_path, upload_path, rad, fixed)
     elif op == 1:
         logger.info("Image rotate function start")
         starttime = datetime.datetime.now()
         angle = input_json["op_par"]["rotate"]["angle"]
-        rotate_image(download_path, upload_path, angle)
+        rotate_image(file_local_path, upload_path, angle)
     elif op == 2:
         logger.info("Image add_QRCode function start")
         starttime = datetime.datetime.now()
-        text = "www.sustc.edu.cn"
-        qrcode_image(download_path, upload_path, text)
+        QRCode_text = input_json["op_par"]["qr_content"]["content"]
+        position = input_json["op_par"]["qr_content"]["position"]
+        fixed = input_json["op_par"]["qr_content"]["fixed"]
+        qrcode_image(file_local_path, upload_path, QRCode_text, position, fixed)
     elif op == 3:
         logger.info("Image thumbnail function start")
         starttime = datetime.datetime.now()
-        size = (128, 128)
-        thumbnail_image(download_path, upload_path, size)
+        size = input_json["op_par"]["thumbnaill"]["size"]
+        thumbnail_image(file_local_path, upload_path, size)
     elif op == 4:
         logger.info("Image water_mark_text function start")
         starttime = datetime.datetime.now()
-        text = " SUSTech "
-        ratio = 0.2
+        text = input_json["op_par"]["mark_text"]["content"]
+        size_ratio = input_json["op_par"]["mark_text"]["size_ratio"]
+        ttf_name = input_json["op_par"]["mark_text"]["font_name"]
+        rotate_angle = input_json["op_par"]["mark_text"]["rotate_angle"]
+        clear_ratio = input_json["op_par"]["mark_text"]["clear_ratio"]
+        position = input_json["op_par"]["mark_text"]["position"]
+        fixed = input_json["op_par"]["mark_text"]["fixed"]
         # download ttf
         try:
             ttf_bucket = u'stuff'
-            ttf_name = input_json["op_par"]["mark_text"]["font_name"]
             ttf_path = '/tmp/{}'.format(ttf_name)
             print("font is " + ttf_name)  # file name in bucket
             if(download(ttf_bucket, ttf_name, ttf_path, cos_client) == -1):
@@ -240,15 +247,17 @@ def main_handler(event, context):
             print(e)
             print("Error in downloading font")
             raise e
-        text_watermark_image(download_path, upload_path, text, ttf_path, ratio)
+        text_watermark_image(file_local_path, upload_path, text, ttf_path, size_ratio, rotate_angle, clear_ratio, position, fixed)
     elif op == 5:
         logger.info("Image water_mark_img function start")
         starttime = datetime.datetime.now()
-        ratio = 0.2
+        patch_name = input_json["op_par"]["mark_img"]["patch"]
+        clear_ratio = input_json["op_par"]["mark_img"]["clear_ratio"]
+        position = input_json["op_par"]["mark_img"]["position"]
+        fixed = input_json["op_par"]["mark_img"]["fixed"]
         # download patch
         try:
             patch_bucket = u'imgps'
-            patch_name = input_json["op_par"]["mark_img"]["patch"]
             patch_path = '/tmp/{}'.format(patch_name)
             print("patch is " + patch_name)  # file name in bucket
             if(download(patch_bucket, patch_name, patch_path, cos_client) == -1):
@@ -257,19 +266,34 @@ def main_handler(event, context):
             print(e)
             print("Error in downloading patch")
             raise e
-        img_watermark_image(download_path, upload_path, patch_path, ratio)
+        img_watermark_image(file_local_path, upload_path, patch_path, clear_ratio, position, fixed)
     elif op == 6:
         logger.info("Image format convert start")
         starttime = datetime.datetime.now()
-        convert_format_image(download_path, upload_path, input_json["op_par"]["convert_format"]["postfix"])
+        convert_format_image(file_local_path, upload_path, input_json["op_par"]["convert_format"]["postfix"])
+    elif op == 7:
+        logger.info("Image slicing start")
+        starttime = datetime.datetime.now()
+        upload_path_arr = slice_image(file_local_path, input_json["op_par"]["slice"]["num"], input_json["op_par"]["slice"]["direction"])
+        endtime = datetime.datetime.now()
+        logger.info("processing image take " + str((endtime - starttime).microseconds / 1000) + "ms")
+        for p in upload_path_arr:
+            temp_name = p.split('/')[-1]
+            upload(upload_bucket, temp_name, p, cos_client)
+            delete_local_file(str(p))
+        delete_local_file(str(file_local_path))
+        
     else:
         print("Error operation!")
         raise e
 
-    endtime = datetime.datetime.now()
-    logger.info("processing image take " + str((endtime - starttime).microseconds / 1000) + "ms")
-    upload(upload_bucket, input_json["file_name"], upload_path, cos_client)
-    delete_local_file(str(download_path))
-    delete_local_file(str(upload_path))
-    return_json = {"file_cnt": file_cnt, "data": upload_path}
+    if op != 7:
+        endtime = datetime.datetime.now()
+        logger.info("processing image take " + str((endtime - starttime).microseconds / 1000) + "ms")
+        upload(upload_bucket, input_json["file_name"], upload_path, cos_client)
+        delete_local_file(str(file_local_path))
+        delete_local_file(str(upload_path))
+        upload_path_arr = [upload_path]
+
+    return_json = {"file_cnt": file_cnt, "data": str(upload_path_arr)}
     return json.dumps(return_json)

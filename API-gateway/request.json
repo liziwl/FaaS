@@ -11,9 +11,8 @@
             "radius": 10,
             "fixed": 0
         },
-        "thumb_size": {
-            "height": 123,
-            "width": 123
+        "thumbnaill": {
+            "size": [123, 123]
         },
         "mark_text": {
             "content": "FaaS",
