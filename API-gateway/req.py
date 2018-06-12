@@ -218,8 +218,11 @@ def main_handler(event, context):
         logger.info("Image add_QRCode function start")
         starttime = datetime.datetime.now()
         QRCode_text = input_json["op_par"]["qr_content"]["content"]
-        position = input_json["op_par"]["qr_content"]["position"]
         fixed = input_json["op_par"]["qr_content"]["fixed"]
+        if fixed == 0:
+            position = input_json["op_par"]["qr_content"]["position"]["type"]
+        else:
+            position = (input_json["op_par"]["qr_content"]["position"]["width"], input_json["op_par"]["qr_content"]["position"]["height"])
         qrcode_image(file_local_path, upload_path, QRCode_text, position, fixed)
     elif op == 3:
         logger.info("Image thumbnail function start")
@@ -234,8 +237,11 @@ def main_handler(event, context):
         ttf_name = input_json["op_par"]["mark_text"]["font_name"]
         rotate_angle = input_json["op_par"]["mark_text"]["rotate_angle"]
         clear_ratio = input_json["op_par"]["mark_text"]["clear_ratio"]
-        position = input_json["op_par"]["mark_text"]["position"]
         fixed = input_json["op_par"]["mark_text"]["fixed"]
+        if fixed == 0:
+            position = input_json["op_par"]["mark_text"]["position"]["type"]
+        else:
+            position = (input_json["op_par"]["mark_text"]["position"]["width"], input_json["op_par"]["qr_content"]["position"]["height"])
         # download ttf
         try:
             ttf_bucket = u'stuff'
@@ -253,8 +259,11 @@ def main_handler(event, context):
         starttime = datetime.datetime.now()
         patch_name = input_json["op_par"]["mark_img"]["patch"]
         clear_ratio = input_json["op_par"]["mark_img"]["clear_ratio"]
-        position = input_json["op_par"]["mark_img"]["position"]
         fixed = input_json["op_par"]["mark_img"]["fixed"]
+        if fixed == 0:
+            position = input_json["op_par"]["mark_img"]["position"]["type"]
+        else:
+            position = (input_json["op_par"]["mark_img"]["position"]["width"], input_json["op_par"]["qr_content"]["position"]["height"])
         # download patch
         try:
             patch_bucket = u'imgps'
