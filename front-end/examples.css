@@ -284,13 +284,103 @@ p{
     height: 18px;
     min-width: 50px;
     max-width: 100px;
-    margin: 10px;
+    margin: 10px 0;
     padding: 5px 12px;
 }
 
 .input_box::placeholder{
     color: rgba(0,0,0,0.5);
 }
+
+/*.dropdown{*/
+	/*margin:10px 0;*/
+	/*position:relative;*/
+	/*display: inline-block;*/
+/*}*/
+/*.dropdown p{*/
+	/*width:35px;*/
+	/*height:18px;*/
+	/*padding: 5px 12px;*/
+	/*border:1px solid #c0c0af;*/
+	/*border-radius: .25rem;*/
+	/*background:#fff;*/
+	/*color: #333;*/
+	/*cursor:pointer;*/
+	/*font: 400 13.3333px Arial;*/
+/*}*/
+/*.dropdown ul{*/
+	/*width:35px;*/
+	/*background:#fff;*/
+	/*margin-top:1px;*/
+	/*padding: 5px 12px;*/
+	/*border:1px solid #c0c0af;*/
+	/*border-radius: 0 0 .25em .25rem;*/
+	/*position:absolute;*/
+	/*display:none;*/
+/*}*/
+/*.dropdown ul li{*/
+	/*height:18px;*/
+	/*font: 400 13.3333px Arial;*/
+	/*color:#807a62;*/
+	/*text-decoration:none;*/
+	/*cursor: pointer;*/
+/*}*/
+
+/*.dropdown ul li:hover{*/
+	/*background:#c6dbfc;*/
+	/*color:#333;*/
+/*}*/
+
+.select_box{
+	/*font-family: Lato, arial, helvetica, serif;*/
+	color: #333;
+	border: 1px solid #c0c0af;
+	border-radius: .25rem;
+	margin: 10px 0;
+	padding: 5px 22px 5px 12px;
+	display: inline-block;
+	/*background-color: #ffffff;*/
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	/*position: absolute;*/
+	background: #fff url(pitures/arrow_down.png) no-repeat right;
+	/*background-position: 120px 5px;*/
+	background-size: 20px 20px;
+	/* background-color: #66b8ff; */
+	/* color: #efffff; */
+	cursor: pointer;
+	font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+.select_box option{
+	color: #333;
+	font: 400 13.3333px Arial;
+}
+
+.select_box option:hover{
+	background-color: #34ace0;
+}
+
+/*select{*/
+	/*border: none;*/
+	/*outline: none;*/
+	/*width: 100%;*/
+	/*height: 40px;*/
+	/*line-height: 40px;*/
+	/*appearance: none;*/
+	/*-webkit-appearance: none;*/
+	/*-moz-appearance: none;*/
+/*}*/
+/*.select_box:after{*/
+	/*content: "";*/
+	/*width: 14px;*/
+	/*height: 8px;*/
+	/*!*background: url(img/xiala.png) no-repeat center;*!*/
+  	/*position: absolute;*/
+	/*right: 20px;*/
+	/*top: 45%;*/
+  	/*pointer-events: none;*/
+/*}*/
 
 .image_container{
     background-position: center center;
@@ -302,3 +392,4 @@ p{
 .container{
     background-color: rgba(0, 0.2, 0.6, 0.5);
 }
+

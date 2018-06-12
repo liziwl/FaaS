@@ -128,25 +128,32 @@ $(document).ready(function () {
     $('#round_upload').click(function () {
         file = document.getElementById('round_file').files[0];
         //圆角input
-        // var radius = document.getElementById('round_input').value;
-        // var round_fix=document.getElementById('round_fix').value;
-        // if(!radius) {
-        //     alert(("Please input the radius!"));
-        //     return;
-        // }
-
+        var radius = document.getElementById('round_radius').value;
+        var round_fix=document.getElementById('round_fixed').value;
+        if(!radius) {
+            alert(("Please input the radius!"));
+            return;
+        }
+        if(!round_fix) {
+            alert(("Please choose the mode!"));
+            return;
+        }
         if (!file) {
             alert("Please choose a picture");
             // document.getElementById('slide1').innerText='Do not choose the upload file';
             return;
         }
+
         file && uploadFile(file, function (err, data) {
             console.log(err || data);
             uploadFile(file, callback());
         });
-        data_json.op_par.round_corner.radius=10;//just for test
+        data_json.op_par.round_corner.radius=radius;
         data_json.op=0;
+        data_json.op_par.fixed=round_fix;
         data_json.file_name=file.name;
+        console.log(data_json.op_par.round_corner.radius);
+        console.log(data_json.op_par.fixed);
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img_pro', //访问地址
@@ -186,7 +193,7 @@ $(document).ready(function () {
     $('#rotate_upload').click(function () {
         file = document.getElementById('rotate_file').files[0];
         //角度input
-        var percentage = document.getElementById('rotate_input').value;
+        var percentage = document.getElementById('rotate_angle').value;
         if(!percentage || percentage<0 || percentage>360)
         {
             alert(("Please input the percentage! Range[0,360]"));
@@ -257,14 +264,14 @@ $(document).ready(function () {
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
         });
-        var qr_content = document.getElementById('qrcode_input').value;
+        var qr_content = document.getElementById('qrcode_content').value;
         if(!percentage)
         {
             alert("Please input the qr content");
             return;
         }
         data_json.op_par.qr_content.content=qr_content;
-        var qr_fix = document.getElementById('qrcode_fix').value;
+        var qr_fix = document.getElementById('qrcode_fixed').value;
         var qr_position={
             width:0,
             height:0,
@@ -272,12 +279,12 @@ $(document).ready(function () {
         }
         if(qr_fix==0)
         {
-            qr_position.type=document.getElementById('qr_position_type').value;
+            qr_position.type=document.getElementById('qrcode_position').value;
         }
         else if(qr_fix==1)
         {
-            qr_position.height=document.getElementById('qr_position_height').value;
-            qr_position.width=document.getElementById('qr_position_width').value;
+            qr_position.height=document.getElementById('qrcode_position_height').value;
+            qr_position.width=document.getElementById('qrcode_position_width').value;
         }
         data_json.op=2;
         data_json.file_name=file.name;
@@ -334,8 +341,8 @@ $(document).ready(function () {
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
         });
-        var shrink_height=document.getElementById('thumbnail_height').value;
-        var shrink_width=document.getElementById('thumbnail_width').value;
+        var shrink_height=document.getElementById('shrink_height').value;
+        var shrink_width=document.getElementById('shrink_width').value;
         data_json.op=3;
         data_json.file_name=file.name;
         data_json.op_par.thumbnaill.size.height=shrink_height;
@@ -615,6 +622,23 @@ $(document).ready(function () {
         }
     });
 
+    // $('.dropdown p').click(function(){
+    //     var ul = $(".dropdown ul");
+    //     if(ul.css("display")==="none"){
+    //         ul.slideDown("fast");
+    //     }else{
+    //         ul.slideUp("fast");
+    //     }
+    // });
+    //
+    // $(".dropdown ul li").click(function(){
+    //     var txt = $(this).text();
+    //     $(".dropdown p").html(txt);
+    //     $(".dropdown ul").hide();
+    //     var value = $(this).attr("value");////////////////////
+    //     alert(value + "clicked");
+    // });
+
 });
 
 function downloadURI(uri, name) {
@@ -625,6 +649,22 @@ function downloadURI(uri, name) {
     link.click();
     document.body.removeChild(link);
     delete link;
+}
+
+function onClickedQRCodeChangeMode(){
+    var opt = $('#qrcode_fixed option:selected').val();
+    switch (opt){
+        case '0':
+            $('#qrcode_position').show();
+            $('#qrcode_width').hide();
+            $('#qrcode_height').hide();
+            break;
+        case '1':
+            $('#qrcode_position').hide();
+            $('#qrcode_width').show();
+            $('#qrcode_height').show();
+            break;
+    }
 }
 
 
