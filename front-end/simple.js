@@ -36,6 +36,50 @@ var qrcode_address;
 var shrink_address;
 var watermark1_address;
 var watermark2_address;
+var data_json= {
+    "file_name": "foo.jpg",
+    "op": 2,
+    "op_par": {
+        "qr_content": {
+            "content": "FaaS",
+            "position": 3,
+            "fixed": 0
+        },
+        "round_corner": {
+            "radius": 10,
+            "fixed": 0
+        },
+        "thumb_size": {
+            "height": 123,
+            "width": 123
+        },
+        "mark_text": {
+            "content": "FaaS",
+            "font_name": "font.ttf",
+            "size_ratio": 0.2,
+            "rotate_angle": 30,
+            "clear_ratio": 0.2,
+            "position": 3,
+            "fixed": 0
+        },
+        "mark_img": {
+            "patch": "mark.jpg",
+            "clear_ratio": 0.2,
+            "position": 3,
+            "fixed": 0
+        },
+        "slice": {
+            "num": 5,
+            "direction": 1
+        },
+        "rotate": {
+            "angle": 30
+        },
+        "convert_format": {
+            "postfix": "png"
+        }
+    }
+}
 
 var uploadFile=function (file, callback) {
     var Key = file.name;
@@ -78,13 +122,14 @@ $(document).ready(function () {
     var round_name;
     $('#round_upload').click(function () {
         file = document.getElementById('round_file').files[0];
-        // //圆角input
+        //圆角input
         // var radius = document.getElementById('round_input').value;
-        // if(!radius)
-        // {
+        // var round_fix=document.getElementById('round_fix').value;
+        // if(!radius) {
         //     alert(("Please input the radius!"));
         //     return;
         // }
+
         if (!file) {
             alert("Please choose a picture");
             // document.getElementById('slide1').innerText='Do not choose the upload file';
@@ -93,17 +138,16 @@ $(document).ready(function () {
         file && uploadFile(file, function (err, data) {
             console.log(err || data);
             uploadFile(file, callback());
-            alert("function");
-            alert('Upload Successfully');
-            // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
         });
+        data_json.op_par.round_corner.radius=10;//just for test
+        data_json.op=0;
+        data_json.file_name=file.name;
         $.ajax({
             type: 'POST', //访问方式
-            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/prepub/image_process?op=0', //访问地址
+            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img_pro', //访问地址
+            contentType: "application/json;charset=utf-8;",
             dataType: "json", //返回数据的格式 json text xml ...
-            data: {
-                "path": file.name,
-            },
+            data: data_json,
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
@@ -114,6 +158,7 @@ $(document).ready(function () {
                 alert("Finish Process");
             },
             error: function (error) {
+                console.log(url);
                 console.log("访问出现错误 ")
             }
         });
@@ -136,13 +181,14 @@ $(document).ready(function () {
     var rotate_name;
     $('#rotate_upload').click(function () {
         file = document.getElementById('rotate_file').files[0];
-        // //圆角input
-        // var percentage = document.getElementById('shrink_input').value;
-        // if(!percentage || percentage<0 || percentage>1)
-        // {
-        //     alert(("Please input the percentage! Range[0,1]"));
-        //     return;
-        // }
+        //角度input
+        var percentage = document.getElementById('rotate_input').value;
+        if(!percentage || percentage<0 || percentage>360)
+        {
+            alert(("Please input the percentage! Range[0,360]"));
+            return;
+        }
+        data_json.op_par.rotate.angle=percentage;
         if (!file) {
             alert("Please choose a picture");
             // document.getElementById('slide1').innerText='Do not choose the upload file';
@@ -155,13 +201,14 @@ $(document).ready(function () {
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
         });
+        data_json.op=1;
+        data_json.file_name=file.name;
         $.ajax({
             type: 'POST', //访问方式
-            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/prepub/image_process?op=1', //访问地址
+            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img-pro', //访问地址
+            contentType: "application/json;charset=utf-8;",
             dataType: "json", //返回数据的格式 json text xml ...
-            data: {
-                "path": file.name,
-            },
+            data: data_json,
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
@@ -193,18 +240,13 @@ $(document).ready(function () {
     var qrcode_name;
     $('#qrcode_upload').click(function () {
         file = document.getElementById('qrcode_file').files[0];
-        //圆角input
-        // var percentage = document.getElementById('qrcode_input').value;
-        // if(!percentage || percentage<0 || percentage>1)
-        // {
-        //     alert(("Please input the percentage! Range[0,1]"));
-        //     return;
-        // }
+        //qrinput
         if (!file) {
             alert("Please choose a picture");
             // document.getElementById('slide1').innerText='Do not choose the upload file';
             return;
         }
+
         file && uploadFile(file, function (err, data) {
             console.log(err || data);
             uploadFile(file, callback());
@@ -212,14 +254,40 @@ $(document).ready(function () {
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
         });
-
+        var qr_content = document.getElementById('qrcode_input').value;
+        if(!percentage)
+        {
+            alert("Please input the qr content");
+            return;
+        }
+        data_json.op_par.qr_content.content=qr_content;
+        var qr_fix = document.getElementById('qrcode_fix').value;
+        var qr_position={
+            width:0,
+            height:0,
+            type:0
+        }
+        if(qr_fix==0)
+        {
+            qr_position.type=document.getElementById('qr_position_type').value;
+        }
+        else if(qr_fix==1)
+        {
+            qr_position.height=document.getElementById('qr_position_height').value;
+            qr_position.width=document.getElementById('qr_position_width').value;
+        }
+        data_json.op=2;
+        data_json.file_name=file.name;
+        data_json.op_par.qr_content.fixed=qr_fix;
+        data_json.op_par.qr_content.position.height=qr_position.height;
+        data_json.op_par.qr_content.position.width=qr_position.width;
+        data_json.op_par.qr_content.position.type=qr_position.type;
         $.ajax({
             type: 'POST', //访问方式
-            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/prepub/image_process?op=2', //访问地址
+            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img_pro', //访问地址
+            contentType: "application/json;charset=utf-8;",
             dataType: "json", //返回数据的格式 json text xml ...
-            data: {
-                "path": file.name,
-            },
+            data: data_json,
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
@@ -227,7 +295,7 @@ $(document).ready(function () {
                 qrcode_status_code = 200;
                 qrcode_address = "http://imgp-1254095611.cosgz.myqcloud.com/" + qrcode_name+"?t="+Math.random();
                 $("#qrcode_preview").css("background-image", 'url(' + qrcode_address + ')');
-                alert("Finish Process");
+
             },
             error: function (error) {
                 console.log("访问出现错误 ")
@@ -251,13 +319,6 @@ $(document).ready(function () {
     var shrink_name;
     $('#shrink_upload').click(function () {
         file = document.getElementById('shrink_file').files[0];
-        // //圆角input
-        // var percentage = document.getElementById('shrink_input').value;
-        // if(!percentage || percentage<0 || percentage>1)
-        // {
-        //     alert(("Please input the percentage! Range[0,1]"));
-        //     return;
-        // }
         if (!file) {
             alert("Please choose a picture");
             // document.getElementById('slide1').innerText='Do not choose the upload file';
@@ -270,16 +331,22 @@ $(document).ready(function () {
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
         });
+        var shrink_height=document.getElementById('thumbnail_height').value;
+        var shrink_width=document.getElementById('thumbnail_width').value;
+        data_json.op=3;
+        data_json.file_name=file.name;
+        data_json.op_par.thumbnaill.size.height=shrink_height;
+        data_json.op_par.thumbnaill.size.width=shrink_width;
         $.ajax({
             type: 'POST', //访问方式
-            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/prepub/image_process?op=3', //访问地址
+            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img_pro', //访问地址
+            contentType: "application/json;charset=utf-8;",
             dataType: "json", //返回数据的格式 json text xml ...
-            data: {
-                "path": file.name,
-            },
+            data: data_json,
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
+                console.log(message);
                 shrink_name = message.download_path;
                 shrink_status_code = 200;
                 shrink_address = "http://imgp-1254095611.cosgz.myqcloud.com/" + shrink_name+"?t="+Math.random();
@@ -328,13 +395,29 @@ $(document).ready(function () {
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
         });
+        data_json.op=4;
+        data_json.file_name=file.name;
+        data_json.op_par.mark_text.content=document.getElementById('mark_text_content').value;
+        data_json.op_par.mark_text.font_name=document.getElementById('mark_text_fontname').value;
+        data_json.op_par.mark_text.size_ratio=document.getElementById('mark_text_size').value;
+        data_json.op_par.mark_text.rotate_angle=document.getElementById('mark_text_angle').value;
+        data_json.op_par.mark_text.clear_ratio=document.getElementById('mark_text_ratio').value;
+        data_json.op_par.mark_text.fixed=document.getElementById('mark_text_fixed').value;
+        if(document.getElementById('mark_text_fixed').value==0)
+        {
+            data_json.op_par.mark_text.position.type=document.getElementById('mark_text_type').value;
+        }
+        else
+        {
+            data_json.op_par.mark_text.position.width=document.getElementById('mark_text_width').value;
+            data_json.op_par.mark_text.position.height=document.getElementById('mark_text_height').value;
+        }
         $.ajax({
             type: 'POST', //访问方式
-            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/prepub/image_process?op=4', //访问地址
+            url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img_pro', //访问地址
             dataType: "json", //返回数据的格式 json text xml ...
-            data: {
-                "path": file.name,
-            },
+            contentType: "application/json;charset=utf-8;",
+            data: data_json,
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
@@ -386,6 +469,9 @@ $(document).ready(function () {
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
         });
+        data_json.op=5;
+        data_json.file_name=file.name;
+        data_json.op_par.mark_img.clear_ratio=document.getElementById()
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/prepub/image_process?op=5', //访问地址
