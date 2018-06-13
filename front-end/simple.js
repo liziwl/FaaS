@@ -40,7 +40,8 @@ var watermark2_address;
 var convert_address;
 var slice_address;
 var slice_number;
-var data_json= {
+var data_json=
+    {
     "file_name": "foo.jpg",
     "op": 2,
     "op_par": {
@@ -86,7 +87,7 @@ var data_json= {
 };
 
 
-var uploadFile=function (file, callback) {
+var uploadFile=function (file) {
     var Key = file.name;
     getAuthorization({Method:'POST',Key:Key},function (err,info) {
         var auth = info.Authorization;
@@ -102,7 +103,6 @@ var uploadFile=function (file, callback) {
         xhr.onload=function () {
             if(Math.floor(xhr.status/100)===2){
                 var ETag=xhr.getResponseHeader('etag');
-                callback(null,{url:url,ETag:ETag});
             }
             else
             {
@@ -146,7 +146,7 @@ $(document).ready(function () {
 
         file && uploadFile(file, function (err, data) {
             console.log(err || data);
-            uploadFile(file, callback());
+            uploadFile(file);
         });
         data_json.op_par.round_corner.radius=radius;
         data_json.op=0;
@@ -154,14 +154,14 @@ $(document).ready(function () {
         data_json.file_name=file.name;
         console.log(data_json.op_par.round_corner.radius);
         console.log(data_json.op_par.fixed);
+        var data=JSON.stringify(data_json);
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img_pro', //访问地址
-            contentType: "application/json;charset=utf-8;",
+            contentType: "application/json;charset=utf-8",
             dataType: "json", //返回数据的格式 json text xml ...
-            data: data_json,
+            data: data,
             success: function (response) {
-                console.log("response");
                 var message = JSON.parse(response);
                 round_name = message.file_name;
                 round_status_code = 200;
@@ -169,8 +169,7 @@ $(document).ready(function () {
                 $("#round_preview").css("background-image", 'url(' + round_address + ')');
             },
             error: function (error) {
-                console.log(url);
-                console.log("访问出现错误 ")
+                console.log("访问出现错误 ");
             }
         });
     });
@@ -207,19 +206,20 @@ $(document).ready(function () {
         }
         file && uploadFile(file, function (err, data) {
             console.log(err || data);
-            uploadFile(file, callback());
+            uploadFile(file);
             alert("function");
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
         });
         data_json.op=1;
         data_json.file_name=file.name;
+        var data=JSON.stringify(data_json);
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img-pro', //访问地址
-            contentType: "application/json;charset=utf-8;",
+            contentType: "application/json;charset=utf-8",
             dataType: "json", //返回数据的格式 json text xml ...
-            data: data_json,
+            data: data,
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
@@ -230,6 +230,7 @@ $(document).ready(function () {
             },
             error: function (error) {
                 console.log("访问出现错误 ")
+                console.log(data_json);
             }
         });
     });
@@ -259,7 +260,7 @@ $(document).ready(function () {
 
         file && uploadFile(file, function (err, data) {
             console.log(err || data);
-            uploadFile(file, callback());
+            uploadFile(file);
             alert("function");
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
@@ -292,12 +293,13 @@ $(document).ready(function () {
         data_json.op_par.qr_content.position.height=qr_position.height;
         data_json.op_par.qr_content.position.width=qr_position.width;
         data_json.op_par.qr_content.position.type=qr_position.type;
+        var data=JSON.stringify(data_json);
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img_pro', //访问地址
             contentType: "application/json;charset=utf-8;",
             dataType: "json", //返回数据的格式 json text xml ...
-            data: data_json,
+            data: data,
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
@@ -336,7 +338,7 @@ $(document).ready(function () {
         }
         file && uploadFile(file, function (err, data) {
             console.log(err || data);
-            uploadFile(file, callback());
+            uploadFile(file);
             alert("function");
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
@@ -347,12 +349,13 @@ $(document).ready(function () {
         data_json.file_name=file.name;
         data_json.op_par.thumbnaill.size.height=shrink_height;
         data_json.op_par.thumbnaill.size.width=shrink_width;
+        var data=JSON.stringify(data_json);
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img_pro', //访问地址
-            contentType: "application/json;charset=utf-8;",
+            contentType: "application/json;charset=utf-8",
             dataType: "json", //返回数据的格式 json text xml ...
-            data: data_json,
+            data: data,
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
@@ -399,7 +402,7 @@ $(document).ready(function () {
         }
         file && uploadFile(file, function (err, data) {
             console.log(err || data);
-            uploadFile(file, callback());
+            uploadFile(file);
             alert("function");
             alert('Upload Successfully');
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
@@ -421,12 +424,13 @@ $(document).ready(function () {
             data_json.op_par.mark_text.position.width=document.getElementById('mark_text_width').value;
             data_json.op_par.mark_text.position.height=document.getElementById('mark_text_height').value;
         }
+        var data=JSON.stringify(data_json);
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img_pro', //访问地址
             dataType: "json", //返回数据的格式 json text xml ...
-            contentType: "application/json;charset=utf-8;",
-            data: data_json,
+            contentType: "application/json;charset=utf-8",
+            data: data,
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
@@ -472,11 +476,11 @@ $(document).ready(function () {
 
         file && uploadFile(file, function (err, data) {
             console.log(err || data);
-            uploadFile(file, callback());
+            uploadFile(file);
             // document.getElementById('slide1').innerText=err?err:('Upload Successfully'+data.ETag);
         });
         water_file&&uploadFile(water_file,function () {
-            uploadFile(water_file,callback());
+            uploadFile(water_file);
         });
         data_json.op=5;
         data_json.file_name=file.name;
@@ -491,12 +495,13 @@ $(document).ready(function () {
         {
             data_json.op_par.mark_img.position.type=document.getElementById('mark_img_type').value;
         }
+        var data=JSON.stringify(data_json);
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img_pro', //访问地址
             dataType: "json", //返回数据的格式 json text xml ...
-            contentType: "application/json;charset=utf-8;",
-            data: data_json,
+            contentType: "application/json;charset=utf-8",
+            data: data,
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
@@ -533,18 +538,19 @@ $(document).ready(function () {
             return;
         }
         file&&uploadFile(file,function () {
-            uploadFile(file,callback());
+            uploadFile(file);
 
         });
         data_json.op=6;
         data_json.file_name=file.name;
         data_json.op_par.convert_format.postfix=document.getElementById('convert_postfix').value;
+        var data=JSON.stringify(data_json);
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img_pro', //访问地址
             dataType: "json", //返回数据的格式 json text xml ...
-            contentType: "application/json;charset=utf-8;",
-            data: data_json,
+            contentType: "application/json;charset=utf-8",
+            data: data,
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
@@ -580,19 +586,20 @@ $(document).ready(function () {
             return;
         }
         file&&uploadFile(file,function () {
-            uploadFile(file,callback());
+            uploadFile(file);
 
         });
         data_json.op=7;
         data_json.file_name=file.name;
         data_json.op_par.slice.num=document.getElementById('slice_num').value;
         data_json.op_par.slice.direction=document.getElementById('slice_direction').value;
+        var data=JSON.stringify(data_json);
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/test/img_pro', //访问地址
             dataType: "json", //返回数据的格式 json text xml ...
-            contentType: "application/json;charset=utf-8;",
-            data: data_json,
+            contentType: "application/json;charset=utf-8",
+            data: data,
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
