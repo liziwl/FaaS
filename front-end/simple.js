@@ -284,8 +284,8 @@ $(document).ready(function () {
         }
         else if(qr_fix==1)
         {
-            qr_position.height=document.getElementById('qrcode_position_height').value;
-            qr_position.width=document.getElementById('qrcode_position_width').value;
+            qr_position.height=document.getElementById('qrcode_height').value;
+            qr_position.width=document.getElementById('qrcode_width').value;
         }
         data_json.op=2;
         data_json.file_name=file.name;
@@ -409,20 +409,20 @@ $(document).ready(function () {
         });
         data_json.op=4;
         data_json.file_name=file.name;
-        data_json.op_par.mark_text.content=document.getElementById('mark_text_content').value;
-        data_json.op_par.mark_text.font_name=document.getElementById('mark_text_fontname').value;
-        data_json.op_par.mark_text.size_ratio=document.getElementById('mark_text_size').value;
-        data_json.op_par.mark_text.rotate_angle=document.getElementById('mark_text_angle').value;
-        data_json.op_par.mark_text.clear_ratio=document.getElementById('mark_text_ratio').value;
-        data_json.op_par.mark_text.fixed=document.getElementById('mark_text_fixed').value;
-        if(document.getElementById('mark_text_fixed').value==0)
+        data_json.op_par.mark_text.content=document.getElementById('watermark1_content').value;
+        data_json.op_par.mark_text.font_name=document.getElementById('watermark1_font').value;
+        data_json.op_par.mark_text.size_ratio=document.getElementById('watermark1_size').value;
+        data_json.op_par.mark_text.rotate_angle=document.getElementById('watermark1_angle').value;
+        data_json.op_par.mark_text.clear_ratio=document.getElementById('watermark1_opacity').value;
+        data_json.op_par.mark_text.fixed=document.getElementById('watermark1_fixed').value;
+        if(data_json.op_par.mark_text.fixed===0)
         {
-            data_json.op_par.mark_text.position.type=document.getElementById('mark_text_type').value;
+            data_json.op_par.mark_text.position.type=document.getElementById('watermark1_position').value;
         }
         else
         {
-            data_json.op_par.mark_text.position.width=document.getElementById('mark_text_width').value;
-            data_json.op_par.mark_text.position.height=document.getElementById('mark_text_height').value;
+            data_json.op_par.mark_text.position.width=document.getElementById('watermark1_width').value;
+            data_json.op_par.mark_text.position.height=document.getElementById('watermark1_height').value;
         }
         var data=JSON.stringify(data_json);
         $.ajax({
@@ -674,4 +674,18 @@ function onClickedQRCodeChangeMode(){
     }
 }
 
-
+function onClickedWatermark1ChangeMode(){
+    var opt = $('#watermark1_fixed option:selected').val();
+    switch (opt){
+        case '0':
+            $('#watermark1_position').show();
+            $('#watermark1_width').hide();
+            $('#watermark1_height').hide();
+            break;
+        case '1':
+            $('#watermark1_position').hide();
+            $('#watermark1_width').show();
+            $('#watermark1_height').show();
+            break;
+    }
+}
