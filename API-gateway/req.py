@@ -306,7 +306,7 @@ def main_handler(event, context):
         endtime = datetime.datetime.now()
         logger.info("processing image take " +
                     str((endtime - starttime).microseconds / 1000) + "ms")
-        count = 0
+        count = 1
         upload_path_dict = {}
         for p in upload_local_arr:
             loc_name = p.split('/')[-1]
@@ -315,7 +315,7 @@ def main_handler(event, context):
             upload_path_dict[str(count)] = loc_name
             count += 1
             delete_local_file(str(p))
-        file_cnt = count
+        file_cnt = count-1
         delete_local_file(str(file_local_path))
 
     else:
