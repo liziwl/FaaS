@@ -199,14 +199,15 @@ def main_handler(event, context):
     download_bucket = u'imgps'
     upload_bucket = u'imgp'
     file_local_path = u"/tmp/{}".format(input_json["file_name"])
-    png_name = "{}{}".format(name_pattern.findall(
+    # here up_name is set to png
+    up_name = "{}{}".format(name_pattern.findall(
         input_json["file_name"].split('/')[-1])[0], 'png')
-    post_local_path = "/tmp/processed-{0}".format(png_name)
+    post_local_path = "/tmp/processed-{0}".format(up_name)
     op = input_json["op"]
     file_cnt = 1
 
     try:
-        if(download(download_bucket, "/"+input_json["file_name"], file_local_path, cos_client) != 0):
+        if(download(download_bucket, u'/'+unicode(input_json["file_name"]), file_local_path, cos_client) != 0):
             raise Exception("Fail download")
     except Exception as e:
         print(e)
@@ -259,9 +260,9 @@ def main_handler(event, context):
         # download ttf
         try:
             ttf_bucket = u'stuff'
-            ttf_path = '/tmp/{}'.format(ttf_name)
+            ttf_path = u'/tmp/{}'.format(ttf_name)
             print("font is " + ttf_name)  # file name in bucket
-            if(download(ttf_bucket, ttf_name, ttf_path, cos_client) == -1):
+            if(download(ttf_bucket, u'/'+unicode(ttf_name), ttf_path, cos_client) == -1):
                 raise e
         except Exception as e:
             print(e)
@@ -283,9 +284,9 @@ def main_handler(event, context):
         # download patch
         try:
             patch_bucket = u'imgps'
-            patch_path = '/tmp/{}'.format(patch_name)
+            patch_path = u'/tmp/{}'.format(patch_name)
             print("patch is " + patch_name)  # file name in bucket
-            if(download(patch_bucket, patch_name, patch_path, cos_client) == -1):
+            if(download(patch_bucket, u'/'+unicode(patch_name), patch_path, cos_client) == -1):
                 raise e
         except Exception as e:
             print(e)
@@ -296,6 +297,10 @@ def main_handler(event, context):
     elif op == 6:
         logger.info("Image format convert start")
         starttime = datetime.datetime.now()
+        custom_name = "{}{}".format(name_pattern.findall(input_json["file_name"].split('/')[-1])[0],
+                                    input_json["op_par"]["convert_format"]["postfix"])
+        post_local_path = "/tmp/processed-{0}".format(custom_name)
+        up_name = custom_name
         convert_format_image(file_local_path, post_local_path,
                              input_json["op_par"]["convert_format"]["postfix"])
     elif op == 7:
@@ -327,11 +332,11 @@ def main_handler(event, context):
         logger.info("processing image take " +
                     str((endtime - starttime).microseconds / 1000) + "ms")
         try:
-            if (upload(upload_bucket, u"/"+unicode(png_name), unicode(post_local_path), cos_client) != 0):
+            if (upload(upload_bucket, u"/"+unicode(up_name), unicode(post_local_path), cos_client) != 0):
                 raise Exception("Fail upload")
             delete_local_file(str(file_local_path))
             delete_local_file(str(post_local_path))
-            upload_path_dict = {"1": png_name}
+            upload_path_dict = {"1": up_name}
         except Exception as e:
             print(e)
             print("Error in uploading")

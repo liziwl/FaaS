@@ -303,7 +303,7 @@ def water_mark_fig(input_file_addr, water_mark_fig_addr, clear=0.2, position=3, 
     return waterImage
 
 
-def thumbnail(input_file_addr, size=(128, 128)):
+def thumbnail(input_file_addr, size={"width": 128, "height": 128}):
     """
     Create thumbnail for figure
 
@@ -317,5 +317,6 @@ def thumbnail(input_file_addr, size=(128, 128)):
     image object
     """
     image = Image.open(input_file_addr)
-    image.thumbnail(size)
+    csize = (size["width"], size["height"])
+    image.thumbnail(csize)
     return image
