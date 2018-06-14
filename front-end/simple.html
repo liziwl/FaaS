@@ -19,6 +19,7 @@
 
     <script type="text/javascript" src="scrolloverflow.js"></script>
     <script src="https://unpkg.com/file-upload-with-preview"></script>
+    <!--<script type="text/javascript" src="fileinput.min.js"></script>-->
     <link rel="stylesheet" media="(min-width: 568.01px)" href="hori_display.css">
     <link rel="stylesheet" media="(max-width: 568px)" href="vert_display.css">
     <link rel="stylesheet"
@@ -60,11 +61,11 @@
                             <option value="1">px</option>
                         </select>
                         <!--<div class="dropdown">-->
-                            <!--<p>mode</p>-->
-                            <!--<ul id="round_fixed" rel="">-->
-                                <!--<li value="0">%</li>-->
-                                <!--<li value="1">px</li>-->
-                            <!--</ul>-->
+                        <!--<p>mode</p>-->
+                        <!--<ul id="round_fixed" rel="">-->
+                        <!--<li value="0">%</li>-->
+                        <!--<li value="1">px</li>-->
+                        <!--</ul>-->
                         <!--</div>-->
                         <input class="control_btn" type="button" id="round_upload" value="Upload"
                                style="background: #33d9b2; margin-left: 20px">
@@ -84,7 +85,7 @@
         </div>
         <div class="slide " id="slide2">
             <div class="container">
-                <h1 class="slide_title">图片旋转</h1>
+                <h1 class="slide_title">Rotation</h1>
                 <div class="custom-file-container" data-upload-id="rotate_selector">
                     <label style="display: none;">Upload File <a href="javascript:void(0)"
                                                                  class="custom-file-container__image-clear"
@@ -130,7 +131,8 @@
                     </label>
                     <div>
                         <input type="text" class="input_box" id="qrcode_content" placeholder="content">
-                        <select name="qrcode_fixed" id="qrcode_fixed" class="select_box" onchange="onClickedQRCodeChangeMode()">
+                        <select name="qrcode_fixed" id="qrcode_fixed" class="select_box"
+                                onchange="onClickedQRCodeChangeMode()">
                             <option value="0" selected>relative</option>
                             <option value="1">absolute</option>
                         </select>
@@ -141,24 +143,26 @@
                             <option value="4">bottom left</option>
                             <option value="5" selected>bottom right</option>
                         </select>
-                        <input type="text" class="input_box" id="qrcode_width" style="display: none;" placeholder="width">
-                        <input type="text" class="input_box" id="qrcode_height" style="display: none;" placeholder="height">
+                        <input type="text" class="input_box" id="qrcode_width" style="display: none;"
+                               placeholder="width">
+                        <input type="text" class="input_box" id="qrcode_height" style="display: none;"
+                               placeholder="height">
                         <!--<div class="dropdown">-->
-                            <!--<p>mode</p>-->
-                            <!--<ul id="qrcode_fixed" rel="">-->
-                                <!--<li value="0">%</li>-->
-                                <!--<li value="1">px</li>-->
-                            <!--</ul>-->
+                        <!--<p>mode</p>-->
+                        <!--<ul id="qrcode_fixed" rel="">-->
+                        <!--<li value="0">%</li>-->
+                        <!--<li value="1">px</li>-->
+                        <!--</ul>-->
                         <!--</div>-->
                         <!--<div class="dropdown" style="visibility: hidden">-->
-                            <!--<p>position</p>-->
-                            <!--<ul id="qrcode_position" rel="">-->
-                                <!--<li value="1">upper left</li>-->
-                                <!--<li value="2">upper right</li>-->
-                                <!--<li value="3">center</li>-->
-                                <!--<li value="4">bottom left</li>-->
-                                <!--<li value="5">bottom right</li>-->
-                            <!--</ul>-->
+                        <!--<p>position</p>-->
+                        <!--<ul id="qrcode_position" rel="">-->
+                        <!--<li value="1">upper left</li>-->
+                        <!--<li value="2">upper right</li>-->
+                        <!--<li value="3">center</li>-->
+                        <!--<li value="4">bottom left</li>-->
+                        <!--<li value="5">bottom right</li>-->
+                        <!--</ul>-->
                         <!--</div>-->
                         <input class="control_btn" type="button" id="qrcode_upload" value="Upload"
                                style="background: #33d9b2; margin-left: 20px">
@@ -211,7 +215,7 @@
         </div>
         <div class="slide" id="slide5">
             <div class="container">
-                <h1 class="slide_title">Watermark with text</h1>
+                <h1 class="slide_title">Watermark with Text</h1>
                 <div class="custom-file-container" data-upload-id="watermark1_selector">
                     <label style="display: none;">Upload File <a href="javascript:void(0)"
                                                                  class="custom-file-container__image-clear"
@@ -226,16 +230,17 @@
                     <div>
                         <input type="text" class="input_box" id="watermark1_content" placeholder="content">
                         <select id="watermark1_font" class="select_box">
-                            <option value="Microsoft YaHei UI">Microsoft YaHei UI</option>
-                            <option value="Lato">Lato</option>
-                            <option value="宋体">宋体</option>
-                            <option value="Times New Roman">Times New Roman</option>
-                            <option value="Courier New">Courier New</option>
+                            <option value="msyh.ttc">Microsoft YaHei UI</option>
+                            <option value="Lato-Regular.ttf">Lato</option>
+                            <option value="simsun.ttc">宋体</option>
+                            <option value="times.ttf">Times New Roman</option>
+                            <option value="cour.ttf">Courier New</option>
                         </select>
                         <input type="text" class="input_box" id="watermark1_size" placeholder="size(%)">
                         <input type="text" class="input_box" id="watermark1_angle" placeholder="angle(°)">
                         <input type="text" class="input_box" id="watermark1_opacity" placeholder="opacity">
-                        <select name="watermark1_fixed" id="watermark1_fixed" class="select_box" onchange="onClickedWatermark1ChangeMode()">
+                        <select name="watermark1_fixed" id="watermark1_fixed" class="select_box"
+                                onchange="onClickedWatermark1ChangeMode()">
                             <option value="0" selected>relative</option>
                             <option value="1">absolute</option>
                         </select>
@@ -246,8 +251,10 @@
                             <option value="4">bottom left</option>
                             <option value="5" selected>bottom right</option>
                         </select>
-                        <input type="text" class="input_box" id="watermark1_width" style="display: none;" placeholder="width">
-                        <input type="text" class="input_box" id="watermark1_height" style="display: none;" placeholder="height">
+                        <input type="text" class="input_box" id="watermark1_width" style="display: none;"
+                               placeholder="width">
+                        <input type="text" class="input_box" id="watermark1_height" style="display: none;"
+                               placeholder="height">
                         <br>
                         <input class="control_btn" type="button" id="watermark1_upload" value="Upload"
                                style="background: #33d9b2; margin-left: 20px">
@@ -267,50 +274,71 @@
         </div>
         <div class="slide" id="slide6">
             <div class="container">
-                <h1 class="slide_title">Watermark with image</h1>
-                <div class="custom-file-container" data-upload-id="watermark2_selector">
+                <h1 class="slide_title">Watermark with Image</h1>
+                <div class="custom-file-container" data-upload-id="watermark2_selector" style="display: inline-block; width: 33%;">
                     <label style="display: none;">Upload File <a href="javascript:void(0)"
                                                                  class="custom-file-container__image-clear"
                                                                  title="Clear Image">x</a></label>
-                    <label class="custom-file-container__custom-file file_control_bar">
+                    <label class="custom-file-container__custom-file file_control_bar" style="margin-bottom: 40px !important;">
                         <input type="file" class="custom-file-container__custom-file__custom-file-input"
                                style="height: 100%;" accept="image/*" id="watermark2_file">
                         <input type="hidden" name="MAX_FILE_SIZE" value="10485760"/>
                         <span class="custom-file-container__custom-file__custom-file-control"
                               style="height: 100%; padding: 0; "></span>
                     </label>
-                    <div>
-                        <div class="custom-file-container" data-upload-id="watermark2_selector">
-                            <label style="display: none;">Upload File <a href="javascript:void(0)"
-                                                                         class="custom-file-container__image-clear"
-                                                                         title="Clear Image">x</a></label>
-                            <label class="custom-file-container__custom-file file_control_bar">
-                                <input type="file" class="custom-file-container__custom-file__custom-file-input"
-                                       style="height: 100%;" accept="image/*" id="watermark2_file">
-                                <input type="hidden" name="MAX_FILE_SIZE" value="10485760"/>
-                                <span class="custom-file-container__custom-file__custom-file-control"
-                                      style="height: 100%; padding: 0; "></span>
-                            </label>
-                            <div></div>
-                        <input class="control_btn" type="button" id="watermark2_upload" value="Upload"
-                               style="background: #33d9b2; margin-left: 20px">
-                        <input class="control_btn" type="button" id="watermark2_download" value="Download"
-                               style="background: #34ace0">
-                        <a href="#" onclick="prepHref(this)" download></a>
-                        <!--<input class="control_btn" type="button" id="round_cancel"value="Cancel" style="background: #ff5252">-->
+                    <div class="image_container image_container_narrow custom-file-container__image-preview"></div>
+                </div>
+                <div class="custom-file-container" data-upload-id="watermark2_content_selector" style="display: inline-block; width: 33%;">
+                    <label style="display: none;">Upload File <a href="javascript:void(0)"
+                                                                 class="custom-file-container__image-clear"
+                                                                 title="Clear Image">x</a></label>
+                    <label class="custom-file-container__custom-file file_control_bar" style="margin-bottom: 40px !important;">
+                        <input type="file" class="custom-file-container__custom-file__custom-file-input"
+                               style="height: 100%;" accept="image/*" id="watermark2_content">
+                        <input type="hidden" name="MAX_FILE_SIZE" value="10485760"/>
+                        <span class="custom-file-container__custom-file__custom-file-control watermark-control-bar"
+                              style="height: 100%; padding: 0; "></span>
+                    </label>
+                    <div class="image_container image_container_narrow custom-file-container__image-preview"></div>
+                </div>
+                <div style="display: inline-block; width: 33%;">
+                    <input type="text" class="input_box" id="watermark2_opacity" placeholder="opacity">
+                    <select name="watermark2_fixed" id="watermark2_fixed" class="select_box"
+                            onchange="onClickedWatermark2ChangeMode()">
+                        <option value="0" selected>relative</option>
+                        <option value="1">absolute</option>
+                    </select>
+                    <select id="watermark2_position" class="select_box">
+                        <option value="1">upper left</option>
+                        <option value="2">upper right</option>
+                        <option value="3">center</option>
+                        <option value="4">bottom left</option>
+                        <option value="5" selected>bottom right</option>
+                    </select>
+                    <input type="text" class="input_box" id="watermark2_width" style="display: none;"
+                           placeholder="width">
+                    <input type="text" class="input_box" id="watermark2_height" style="display: none;"
+                           placeholder="height">
+                    <br>
+                    <input class="control_btn" type="button" id="watermark2_upload" value="Upload"
+                           style="background: #33d9b2; margin-left: 20px">
+                    <input class="control_btn" type="button" id="watermark2_download" value="Download"
+                           style="background: #34ace0">
+                    <a href="#" onclick="prepHref(this)" download></a>
+                    <!--<input class="control_btn" type="button" id="round_cancel"value="Cancel" style="background: #ff5252">-->
+
+                <!--<div class="row">-->
+                    <div class="image_container image_container_narrow custom-file-container__image-preview"
+                         id="watermark2_preview"
+                         style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAiQAAAD6CAMAAACmhqw0AAAA+VBMVEUAAAD29u3u7unt7ent7enu7uju7uihoqCio6Gio6KjpKOkpaSmpqSmp6WoqKaqq6mqq6qrq6qsrautrauur62wsa6xsa+xsrCys7GztLK0tbK1trS2t7S3t7W4uba5ure6u7e7vLm8vbu9vrvAwL3Awb3DxMHFxcPGxsPHx8TIycXLzMjLzMnMzMnNzsrPz8vP0MzQ0M3S0s/U1NDV1dLX19TY2NTY2NXZ2dba2tXb29bc3Nfc3Njc3dnd3dre3tre39vg4Nvh4dzi4t3i4t7j497k5N/k5ODl5eDl5eHl5uLm5uHn5+Lo6OPp6eTq6uXr6+bs7Oft7eh54KxIAAAAB3RSTlMAHKbl5uztvql9swAABA1JREFUeNrt3VlT01AYgOG0oEEE910URNzFBVFcqCgKirLU/P8fI3QYbEOSdtrMyJzzvHfMlFx833NBQuY0SRrN8UwqabzZSJLGaYNQVacaSdMUVF0zGTMEVTeWmIH6BYkgESSCRJAIEkEiSCRIBIkgESSCRJAIEkEiQSJIBIkgESSCRJAIEgkSQSJIBIkgESSCRJBIkAgSQSJIBIkgESSCRIJEkAgSQSJIBIkgkSARJIJEkAgSQSJIBIkEiSARJIJEkAgSQSJIJEgEiSARJIJEkAgSQSJBIkgEiSARJIJEkAgSCRJBIkgEiSARJIJEgkSQ5PvxbdS+tyEJuZVb0+noTV579geSQGs/SOvqxiYkYfYwra+rbUhC7NNEjUjSJ5CE2P06jaTnIAmxKwe7vb468t3N14WOki1IAuzMwWrf1HCh3Q6S95AEWGe1b0/WlSCBBBJIIAkdSXvt1aNXa21IICld7dJU5+epJUggKV7tzuzRA4/ZHUggKVrtfNdjsXlIIClY7XLPw9NlSCA5vtqLPUguQgLJsdX+zv0fZhsSSPKrXckhWSn5jV8zG5DEiuR1DsnrEiOX0vMbkESKZDWHZLXMSFqsBJIIkOz1vn40sVdqpFgJJDHc3dzsQXKzwkihEkhiQLI+2f3y+3qVkSIlkMSAJFvsQrJYbaRACSRRIMlenj0UcPZlPyPHlUASB5Jsc+7cwevMc5v9jRxTAkkkSPbb+riVZYMYySuBJB4kJRUYySmBJHYkhUZ6lUASOZISIz1KIIkbSamRbiWQxIZkvT2YkS4lkESGpDV9tz2YkX9KIIkLSWs6TY+U9DFypASSqJC0OicfHSrpa2T/k5BEh6R1eDpWR8kARtIZSGJD0jo6QW1fySBGIIkOSavrlL27PwcxAklsSFo9JzFOppBAkl9ta5jTOiGJCslQRiCJCslwRiCJCcmQRiCJCMmwRiCJB8mXoU+YhyQaJM9TSCCBBBJIIIEEEkgggQQSSCCJAsnyzLA9hiQWJCfnSpBAAgkkkATXxFCnPxfU7iB5B0mAXT5Y7Z3t0Y087SDZgCTA7tX6bZ5TGSQBtlwrkgVIgmy+RiMXdiEJsp3b9Rn5nEESaC/O1/P3yMJuBkm4bX94O2rvNiKbWXRIBIkgESSCRJAIEkEiQSJIBIkgESSCRJAIEgkSQSJIBIkgESSCRIJEkAgSQSJIBIkgESQSJIJEkAgSQSJIBIkgkSARJIJEkAgSQSJIBIkEiSARJIJEkAgSQSJIJEgEiSARJIJEkAgSCRJBIkgEiSARJIJEkEiQCBJBIkgEiSARJIJEgkSQCBJBIkgEiSARJBIkgkSQ6P8gGTMDVTeWNA1B1TWTxmlTUFWnGknSaI4bhMoabzaSv+4BHFVoHZzfAAAAAElFTkSuQmCC');">
                     </div>
-                    <div class="row">
-                        <div class="image_container custom-file-container__image-preview"></div>
-                        <div class="image_container custom-file-container__image-preview" id="watermark2_preview"
-                             style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAiQAAAD6CAMAAACmhqw0AAAA+VBMVEUAAAD29u3u7unt7ent7enu7uju7uihoqCio6Gio6KjpKOkpaSmpqSmp6WoqKaqq6mqq6qrq6qsrautrauur62wsa6xsa+xsrCys7GztLK0tbK1trS2t7S3t7W4uba5ure6u7e7vLm8vbu9vrvAwL3Awb3DxMHFxcPGxsPHx8TIycXLzMjLzMnMzMnNzsrPz8vP0MzQ0M3S0s/U1NDV1dLX19TY2NTY2NXZ2dba2tXb29bc3Nfc3Njc3dnd3dre3tre39vg4Nvh4dzi4t3i4t7j497k5N/k5ODl5eDl5eHl5uLm5uHn5+Lo6OPp6eTq6uXr6+bs7Oft7eh54KxIAAAAB3RSTlMAHKbl5uztvql9swAABA1JREFUeNrt3VlT01AYgOG0oEEE910URNzFBVFcqCgKirLU/P8fI3QYbEOSdtrMyJzzvHfMlFx833NBQuY0SRrN8UwqabzZSJLGaYNQVacaSdMUVF0zGTMEVTeWmIH6BYkgESSCRJAIEkEiSCRIBIkgESSCRJAIEkEiQSJIBIkgESSCRJAIEgkSQSJIBIkgESSCRJBIkAgSQSJIBIkgESSCRIJEkAgSQSJIBIkgkSARJIJEkAgSQSJIBIkEiSARJIJEkAgSQSJIJEgEiSARJIJEkAgSQSJBIkgEiSARJIJEkAgSCRJBIkgEiSARJIJEgkSQ5PvxbdS+tyEJuZVb0+noTV579geSQGs/SOvqxiYkYfYwra+rbUhC7NNEjUjSJ5CE2P06jaTnIAmxKwe7vb468t3N14WOki1IAuzMwWrf1HCh3Q6S95AEWGe1b0/WlSCBBBJIIAkdSXvt1aNXa21IICld7dJU5+epJUggKV7tzuzRA4/ZHUggKVrtfNdjsXlIIClY7XLPw9NlSCA5vtqLPUguQgLJsdX+zv0fZhsSSPKrXckhWSn5jV8zG5DEiuR1DsnrEiOX0vMbkESKZDWHZLXMSFqsBJIIkOz1vn40sVdqpFgJJDHc3dzsQXKzwkihEkhiQLI+2f3y+3qVkSIlkMSAJFvsQrJYbaRACSRRIMlenj0UcPZlPyPHlUASB5Jsc+7cwevMc5v9jRxTAkkkSPbb+riVZYMYySuBJB4kJRUYySmBJHYkhUZ6lUASOZISIz1KIIkbSamRbiWQxIZkvT2YkS4lkESGpDV9tz2YkX9KIIkLSWs6TY+U9DFypASSqJC0OicfHSrpa2T/k5BEh6R1eDpWR8kARtIZSGJD0jo6QW1fySBGIIkOSavrlL27PwcxAklsSFo9JzFOppBAkl9ta5jTOiGJCslQRiCJCslwRiCJCcmQRiCJCMmwRiCJB8mXoU+YhyQaJM9TSCCBBBJIIIEEEkgggQQSSCCJAsnyzLA9hiQWJCfnSpBAAgkkkATXxFCnPxfU7iB5B0mAXT5Y7Z3t0Y087SDZgCTA7tX6bZ5TGSQBtlwrkgVIgmy+RiMXdiEJsp3b9Rn5nEESaC/O1/P3yMJuBkm4bX94O2rvNiKbWXRIBIkgESSCRJAIEkEiQSJIBIkgESSCRJAIEgkSQSJIBIkgESSCRIJEkAgSQSJIBIkgESQSJIJEkAgSQSJIBIkgkSARJIJEkAgSQSJIBIkEiSARJIJEkAgSQSJIJEgEiSARJIJEkAgSCRJBIkgEiSARJIJEkEiQCBJBIkgEiSARJIJEgkSQCBJBIkgEiSARJBIkgkSQ6P8gGTMDVTeWNA1B1TWTxmlTUFWnGknSaI4bhMoabzaSv+4BHFVoHZzfAAAAAElFTkSuQmCC');">
-                        </div>
-                    </div>
+                <!--</div>-->
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="https://unpkg.com/file-upload-with-preview"></script>
+<!--<script src="https://unpkg.com/file-upload-with-preview"></script>-->
 <script>
     var upload1 = new FileUploadWithPreview('round_selector');
     var upload2 = new FileUploadWithPreview('rotate_selector');
@@ -318,6 +346,7 @@
     var upload4 = new FileUploadWithPreview('shrink_selector');
     var upload5 = new FileUploadWithPreview('watermark1_selector');
     var upload6 = new FileUploadWithPreview('watermark2_selector');
+    var upload7 = new FileUploadWithPreview('watermark2_content_selector');
 </script>
 </body>
 </html>

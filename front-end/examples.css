@@ -392,3 +392,6 @@ p{
     background-color: rgba(0, 0.2, 0.6, 0.5);
 }
 
+.watermark-control-bar:after{
+	content: 'Choose Watermark...' !important;
+}

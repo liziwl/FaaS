@@ -503,7 +503,7 @@ $(document).ready(function () {
     var watermark2_name;
     $('#watermark2_upload').click(function () {
         file = document.getElementById('watermark2_file').files[0];
-        water_file=document.getElementById('watermark2_water_file').files[0];
+        water_file=document.getElementById('watermark2_content_file').files[0];
         if (!file) {
             alert("Please choose a picture");
             // document.getElementById('slide1').innerText='Do not choose the upload file';
@@ -525,16 +525,16 @@ $(document).ready(function () {
         });
         data_json.op=5;
         data_json.file_name=file.name;
-        data_json.op_par.mark_img.clear_ratio=document.getElementById('mark_img_ratio').value;
-        data_json.op_par.mark_img.fixed=document.getElementById('mark_img_fixed').value;
+        data_json.op_par.mark_img.clear_ratio=document.getElementById('watermark2_opacity').value;
+        data_json.op_par.mark_img.fixed=document.getElementById('watermark2_fixed').value;
         if(document.getElementById('mark_img_fixed').value==1)
         {
-            data_json.op_par.mark_img.position.width=document.getElementById('mark_img_width').value;
-            data_json.op_par.mark_img.position.height=document.getElementById('mark_img_height').value;
+            data_json.op_par.mark_img.position.width=document.getElementById('watermark2_width').value;
+            data_json.op_par.mark_img.position.height=document.getElementById('watermark2_height').value;
         }
         else
         {
-            data_json.op_par.mark_img.position.type=document.getElementById('mark_img_type').value;
+            data_json.op_par.mark_img.position.type=document.getElementById('watermark2_position').value;
         }
         var data=JSON.stringify(data_json);
         $.ajax({
@@ -730,6 +730,22 @@ function onClickedWatermark1ChangeMode(){
             $('#watermark1_position').hide();
             $('#watermark1_width').show();
             $('#watermark1_height').show();
+            break;
+    }
+}
+
+function onClickedWatermark2ChangeMode(){
+    var opt = $('#watermark2_fixed option:selected').val();
+    switch (opt){
+        case '0':
+            $('#watermark2_position').show();
+            $('#watermark2_width').hide();
+            $('#watermark2_height').hide();
+            break;
+        case '1':
+            $('#watermark2_position').hide();
+            $('#watermark2_width').show();
+            $('#watermark2_height').show();
             break;
     }
 }
