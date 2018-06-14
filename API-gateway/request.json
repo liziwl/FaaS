@@ -18,8 +18,7 @@
         "thumbnaill": {
             "size":{
                 "width": 123,
-                "height": 123,
-                "type": 1
+                "height": 123
             }
         },
         "mark_text": {
