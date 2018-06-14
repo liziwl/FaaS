@@ -445,7 +445,7 @@ $(document).ready(function () {
         var mark1_font_select=document.getElementById('watermark1_font');
         var mark1_font_index=mark1_font_select.selectedIndex;
         data_json.op_par.mark_text.font_name=mark1_font_select.options[mark1_font_index].value;
-        data_json.op_par.mark_text.size_ratio=parseInt(document.getElementById('watermark1_size').value);
+        data_json.op_par.mark_text.size_ratio=parseInt(document.getElementById('watermark1_size').value)/100;
         data_json.op_par.mark_text.rotate_angle=parseFloat(document.getElementById('watermark1_angle').value);
         data_json.op_par.mark_text.clear_ratio=parseFloat(document.getElementById('watermark1_opacity').value);
         data_json.op_par.mark_text.position.fixed=parseInt(document.getElementById('watermark1_fixed').value);
@@ -503,7 +503,7 @@ $(document).ready(function () {
     var watermark2_name;
     $('#watermark2_upload').click(function () {
         file = document.getElementById('watermark2_file').files[0];
-        water_file=document.getElementById('watermark2_content_file').files[0];
+        water_file=document.getElementById('watermark2_content').files[0];
         if (!file) {
             alert("Please choose a picture");
             // document.getElementById('slide1').innerText='Do not choose the upload file';
@@ -525,9 +525,11 @@ $(document).ready(function () {
         });
         data_json.op=5;
         data_json.file_name=file.name;
-        data_json.op_par.mark_img.clear_ratio=document.getElementById('watermark2_opacity').value;
-        data_json.op_par.mark_img.fixed=document.getElementById('watermark2_fixed').value;
-        if(document.getElementById('mark_img_fixed').value==1)
+        data_json.op_par.mark_img.clear_ratio=parseInt(document.getElementById('watermark2_opacity').value)/100;
+        var watermark2_select=document.getElementById('watermark2_fixed');
+        var watermark2_index=watermark2_select.selectedIndex;
+        data_json.op_par.mark_img.fixed=watermark2_select.options[watermark2_index].value;
+        if(document.getElementById('watermark2_fixed').value==1)
         {
             data_json.op_par.mark_img.position.width=document.getElementById('watermark2_width').value;
             data_json.op_par.mark_img.position.height=document.getElementById('watermark2_height').value;
