@@ -149,7 +149,7 @@ $(document).ready(function () {
         var index=myselect.selectedIndex;
         var round_fix=parseInt(myselect.options[index].value);
         if(index==0) {
-            radius=parseFloat(radius);
+            radius=parseInt(radius)/100;
         }
         else
         {
@@ -449,7 +449,7 @@ $(document).ready(function () {
         data_json.op_par.mark_text.font_name=mark1_font_select.options[mark1_font_index].value;
         data_json.op_par.mark_text.size_ratio=parseInt(document.getElementById('watermark1_size').value)/100;
         data_json.op_par.mark_text.rotate_angle=parseFloat(document.getElementById('watermark1_angle').value);
-        data_json.op_par.mark_text.clear_ratio=parseFloat(document.getElementById('watermark1_opacity').value);
+        data_json.op_par.mark_text.clear_ratio=parseInt(document.getElementById('watermark1_opacity').value)/100;
         data_json.op_par.mark_text.position.fixed=parseInt(document.getElementById('watermark1_fixed').value);
         if(data_json.op_par.mark_text.position.fixed==0)
         {
@@ -527,6 +527,7 @@ $(document).ready(function () {
         });
         data_json.op=5;
         data_json.file_name=file.name;
+        data_json.op_par.mark_img.patch=water_file.name;
         data_json.op_par.mark_img.clear_ratio=parseInt(document.getElementById('watermark2_opacity').value)/100;
         var watermark2_select=document.getElementById('watermark2_fixed');
         var watermark2_index=watermark2_select.selectedIndex;
@@ -540,6 +541,7 @@ $(document).ready(function () {
         {
             data_json.op_par.mark_img.position.type=document.getElementById('watermark2_position').value;
         }
+        console.log(data_json);
         var data=JSON.stringify(data_json);
         $.ajax({
             type: 'POST', //访问方式
@@ -626,7 +628,7 @@ $(document).ready(function () {
     /*
     slice
      */
-    var slice_status_code;
+
     var slice_name;
     $('#slice_upload').click(function () {
         file=document.getElementById('slice_file').files[0];
@@ -645,7 +647,6 @@ $(document).ready(function () {
         var slice_index=slice_direction_selector.selectedIndex;
         data_json.op_par.slice.direction=parseInt(slice_direction_selector.options[slice_index].value);
         var data=JSON.stringify(data_json);
-        alert("Finish Process");
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/release/img-pro', //访问地址
@@ -653,6 +654,7 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8",
             data: data,
             success: function (response) {
+                alert("Finish Process");
                 console.log("response");
                 var message = JSON.parse(response);
                 console.log(message);
@@ -693,7 +695,6 @@ $(document).ready(function () {
 
 function downloadAll(links)
 {
-    alert(slice_status_code);
     if(slice_status_code==200)
     {
         var link = document.createElement('a');
