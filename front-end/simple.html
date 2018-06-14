@@ -280,14 +280,18 @@
                               style="height: 100%; padding: 0; "></span>
                     </label>
                     <div>
-                        <!--<label class="custom-file-container__custom-file file_control_bar">-->
-                            <!--<input type="file" class="custom-file-container__custom-file__custom-file-input"-->
-                                   <!--style="height: 100%;" accept="image/*" id="watermark2_content">-->
-                            <!--<input type="hidden" name="MAX_FILE_SIZE" value="10485760"/>-->
-                            <!--<span class="custom-file-container__custom-file__custom-file-control"-->
-                                  <!--style="height: 100%; padding: 0; "></span>-->
-                        <!--</label>-->
-                        <!--<input type="text" class="input_box" id="rotate_input" placeholder="radius">-->
+                        <div class="custom-file-container" data-upload-id="watermark2_selector">
+                            <label style="display: none;">Upload File <a href="javascript:void(0)"
+                                                                         class="custom-file-container__image-clear"
+                                                                         title="Clear Image">x</a></label>
+                            <label class="custom-file-container__custom-file file_control_bar">
+                                <input type="file" class="custom-file-container__custom-file__custom-file-input"
+                                       style="height: 100%;" accept="image/*" id="watermark2_file">
+                                <input type="hidden" name="MAX_FILE_SIZE" value="10485760"/>
+                                <span class="custom-file-container__custom-file__custom-file-control"
+                                      style="height: 100%; padding: 0; "></span>
+                            </label>
+                            <div></div>
                         <input class="control_btn" type="button" id="watermark2_upload" value="Upload"
                                style="background: #33d9b2; margin-left: 20px">
                         <input class="control_btn" type="button" id="watermark2_download" value="Download"
