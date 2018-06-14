@@ -40,6 +40,8 @@ var watermark2_address;
 var convert_address;
 var slice_address;
 var slice_number;
+var slice_status_code;
+var slice_url;
 var data_json=
     {
         "file_name": "foo.jpg",
@@ -638,9 +640,12 @@ $(document).ready(function () {
         });
         data_json.op=7;
         data_json.file_name=file.name;
-        data_json.op_par.slice.num=document.getElementById('slice_num').value;
-        data_json.op_par.slice.direction=document.getElementById('slice_direction').value;
+        data_json.op_par.slice.num=parseInt(document.getElementById('slice_num').value);
+        var slice_direction_selector=document.getElementById('slice_direction');
+        var slice_index=slice_direction_selector.selectedIndex;
+        data_json.op_par.slice.direction=parseInt(slice_direction_selector.options[slice_index].value);
         var data=JSON.stringify(data_json);
+        alert("Finish Process");
         $.ajax({
             type: 'POST', //访问方式
             url: 'http://service-mayhx21s-1254095611.ap-guangzhou.apigateway.myqcloud.com/release/img-pro', //访问地址
@@ -650,30 +655,22 @@ $(document).ready(function () {
             success: function (response) {
                 console.log("response");
                 var message = JSON.parse(response);
+                console.log(message);
                 slice_status_code = 200;
-                slice_address = message.op_par.slice.data;
-                slice_number = message.op_par.slice.file_cnt;
+                slice_address = message.data;
+                slice_number = message.file_cnt;
+                slice_url=new Array();
+                for(var i=1;i<=slice_number;i++)
+                {
+                    slice_url[i-1]="http://imgp-1254095611.cosgz.myqcloud.com/" +slice_address[i]+"?t="+Math.random();
+                }
             },
             error: function (error) {
                 console.log("访问出现错误 ")
             }
         });
     });
-    $('#slice_download').click(function () {
-        if(slice_status_code==200)
-        {
-            var address;
-            for(var i=1;i<=slice_number;i++)
-            {
-                address="http://imgp-1254095611.cosgz.myqcloud.com/" +slice_address[i]+"?t="+Math.random();
-                downloadURI(address,slice_address[i]);
-            }
-        }
-        else
-        {
-            alert("The process does not finish yet");
-        }
-    });
+
 
     // $('.dropdown p').click(function(){
     //     var ul = $(".dropdown ul");
@@ -694,6 +691,39 @@ $(document).ready(function () {
 
 });
 
+function downloadAll(links)
+{
+    alert(slice_status_code);
+    if(slice_status_code==200)
+    {
+        var link = document.createElement('a');
+
+        link.setAttribute('download', null);
+        link.style.display = 'none';
+
+        document.body.appendChild(link);
+        console.log(links);
+        var i=0;
+        while(i<slice_number)
+        {
+            console.log(links[i]);
+            link.setAttribute('href', links[i]);
+            wait(1000);
+            console.log(link);
+            link.click();
+            i++;
+            console.log(i);
+        }
+
+        document.body.removeChild(link);
+
+    }
+    else
+    {
+        alert("The process does not finish yet");
+    }
+}
+
 function downloadURI(uri, name) {
     var link = document.createElement("a");
     link.download = name;
@@ -703,6 +733,15 @@ function downloadURI(uri, name) {
     document.body.removeChild(link);
     delete link;
 }
+
+function wait(ms){
+    var start = new Date().getTime();
+    var end = start;
+    while(end < start + ms) {
+        end = new Date().getTime();
+    }
+}
+
 
 function onClickedQRCodeChangeMode(){
     var opt = $('#qrcode_fixed option:selected').val();
