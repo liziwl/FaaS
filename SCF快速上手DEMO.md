@@ -1,5 +1,7 @@
 # FaaS
-快速上手使用
+
+快速上手使用，[用 FaaS 实现比优图更灵活的大量图片快速加工能力](https://cloud.tencent.com/developer/article/1011234)的文字版
+
 > 基于Centos
 
 ## 准备腾讯云 API 调用工具
