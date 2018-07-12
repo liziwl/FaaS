@@ -51,6 +51,8 @@ Tencent: [Stone](https://cloud.tencent.com/developer/user/561187/activities)
 * [快速构建图片处理云函数](./快速部署创建流程.md)
 * [获取COS上的图像并创建缩略图](https://cloud.tencent.com/document/product/583/9734)
 * [使用API网关提供API服务](https://cloud.tencent.com/document/product/583/13197)
+* [Web 端直传实践](https://cloud.tencent.com/document/product/436/9067)
+* [快速搭建移动应用传输服务](https://cloud.tencent.com/document/product/436/9068)
 
 ### Organization
 
