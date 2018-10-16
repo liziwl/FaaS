@@ -27,13 +27,6 @@ CS304 Software Engineering Project
 - [ ] 获取/抹除图片元数据
 - [ ] 产品化
 
-
-
-## Tutors
-
-Tencent: [Stone](https://cloud.tencent.com/developer/user/561187/activities) 
-
-
 ## Reference Links
 
 * [腾讯云中间件团队的专栏](https://cloud.tencent.com/developer/column/1027)
@@ -57,7 +50,11 @@ Tencent: [Stone](https://cloud.tencent.com/developer/user/561187/activities)
 ### Organization
 
 - WeChat Group: 南科大腾讯 FaaS 项目组
+    - [@Spacebody](https://github.com/Spacebody), [@liziwl](https://github.com/liziwl), [@nixizi](https://github.com/nixizi), [@zcy013](https://github.com/zcy013), [@Reallyee](https://github.com/Reallyee)
 
 ### Acknowledgements
 
-- Tencent: Stone, Alfred
+#### Tutors
+
+- Tencent: [Stone](https://cloud.tencent.com/developer/user/561187/activities), Alfred
+- SUSTech: Yuqun ZHANG
