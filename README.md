@@ -56,5 +56,5 @@ CS304 Software Engineering Project
 
 #### Tutors
 
-- Tencent: [Stone](https://cloud.tencent.com/developer/user/561187/activities), Alfred
-- SUSTech: Yuqun ZHANG
+- Tencent: [Stone](https://cloud.tencent.com/developer/user/561187/activities), [Alfred](https://cloud.tencent.com/developer/user/1082401)
+- SUSTech: [Yuqun ZHANG](http://cse.sustc.edu.cn/cn/people/view/people_id/54/)
